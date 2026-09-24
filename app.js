@@ -4,13 +4,17 @@
  * تصدير تقارير PDF منفصلة، والتخزين المحلي التلقائي.
  */
 
-// مفاتيح التخزين المحلي
+// مفاتيح التخزين المحلي والأمان
 const STORAGE_SALES_KEY = 'matar_sales_records_v1';
 const STORAGE_EXPENSES_KEY = 'matar_expenses_records_v1';
+const STORAGE_LAST_UPDATED_KEY = 'matar_data_last_updated_v1';
+const STORAGE_BACKUP_SNAPSHOT_KEY = 'matar_emergency_backup_v1';
+const CLOUD_SYNC_ENABLED_KEY = 'matar_cloud_sync_enabled_v1';
 
 // حالة التطبيق
 let salesData = [];
 let expensesData = [];
+let lastLocalUpdateTimestamp = Number(localStorage.getItem(STORAGE_LAST_UPDATED_KEY)) || 0;
 
 // =========================================================
 // 1. الساعة الرقمية الحية والتاريخ باللغة العربية
@@ -62,34 +66,94 @@ function initLiveClockAndDate() {
 // 2. إدارة التخزين المحلي والبيانات الافتراضية
 // =========================================================
 
+function isCloudSyncEnabled() {
+  const val = localStorage.getItem(CLOUD_SYNC_ENABLED_KEY);
+  return val === null ? true : (val === 'true');
+}
+
+function toggleCloudSync() {
+  const current = isCloudSyncEnabled();
+  const newState = !current;
+  localStorage.setItem(CLOUD_SYNC_ENABLED_KEY, newState ? 'true' : 'false');
+  updateCloudSyncToggleUI();
+
+  if (newState) {
+    showToast('تم تفعيل المزامنة السحابية الفورية', 'success');
+    pushDataToCloud(true);
+  } else {
+    showToast('تم إيقاف المزامنة السحابية (العمل بوضع التخزين المحلي الآمن)', 'info');
+    updateCloudBadgeStatus('offline', 'المزامنة متوقفة');
+  }
+}
+
+function updateCloudSyncToggleUI() {
+  const toggleBtn = document.getElementById('cloudSyncToggleBtn');
+  const toggleText = document.getElementById('cloudSyncToggleText');
+  const enabled = isCloudSyncEnabled();
+
+  if (toggleBtn) {
+    toggleBtn.className = enabled ? 'btn btn-sm btn-success' : 'btn btn-sm btn-secondary';
+  }
+  if (toggleText) {
+    toggleText.textContent = enabled ? 'المزامنة مفعلة (شغال)' : 'المزامنة معطلة (محلي فقط)';
+  }
+}
+
 function loadDataFromStorage() {
   const storedSales = localStorage.getItem(STORAGE_SALES_KEY);
   const storedExpenses = localStorage.getItem(STORAGE_EXPENSES_KEY);
 
-  if (storedSales) {
+  if (storedSales !== null) {
     try {
       salesData = JSON.parse(storedSales);
+      if (!Array.isArray(salesData)) salesData = [];
     } catch (e) {
       salesData = [];
     }
   } else {
-    // بيانات أولية واقعية للمعاينة الفورية
+    // بيانات أولية للمعاينة الفورية فقط عند التشغيل الأول تماماً
     seedInitialData();
   }
 
-  if (storedExpenses) {
+  if (storedExpenses !== null) {
     try {
       expensesData = JSON.parse(storedExpenses);
+      if (!Array.isArray(expensesData)) expensesData = [];
     } catch (e) {
       expensesData = [];
     }
   }
+
+  lastLocalUpdateTimestamp = Number(localStorage.getItem(STORAGE_LAST_UPDATED_KEY)) || Date.now();
 }
 
-function saveDataToStorage() {
-  localStorage.setItem(STORAGE_SALES_KEY, JSON.stringify(salesData));
-  localStorage.setItem(STORAGE_EXPENSES_KEY, JSON.stringify(expensesData));
+function saveDataToStorage(shouldPush = true) {
+  const timestamp = Date.now();
+  lastLocalUpdateTimestamp = timestamp;
+
+  try {
+    localStorage.setItem(STORAGE_SALES_KEY, JSON.stringify(salesData));
+    localStorage.setItem(STORAGE_EXPENSES_KEY, JSON.stringify(expensesData));
+    localStorage.setItem(STORAGE_LAST_UPDATED_KEY, String(timestamp));
+
+    // حفظ نسخة احتياطية إضافية للطوارئ تلقائياً في ذاكرة الجهاز
+    if (salesData.length > 0 || expensesData.length > 0) {
+      localStorage.setItem(STORAGE_BACKUP_SNAPSHOT_KEY, JSON.stringify({
+        timestamp,
+        sales: salesData,
+        expenses: expensesData
+      }));
+    }
+  } catch (err) {
+    console.error('فشل الحفظ في LocalStorage:', err);
+  }
+
   updateAllViews();
+
+  // إرسال التحديثات للسحابة فوراً في الخلفية
+  if (shouldPush && isCloudSyncEnabled()) {
+    scheduleCloudPush();
+  }
 }
 
 function seedInitialData() {
@@ -1377,6 +1441,143 @@ function triggerHaptic() {
 // =========================================================
 
 
+
+// =========================================================
+// وظائف إضافية: رفع ملفات المبيعات واستعادة الطوارئ وإدارة السحابة
+// =========================================================
+
+function handleSalesFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const text = e.target.result;
+    try {
+      // 1. فحص ملف JSON
+      if (file.name.endsWith('.json') || text.trim().startsWith('{') || text.trim().startsWith('[')) {
+        const parsed = JSON.parse(text);
+        let importedSales = [];
+        if (Array.isArray(parsed)) {
+          importedSales = parsed;
+        } else if (parsed.sales && Array.isArray(parsed.sales)) {
+          importedSales = parsed.sales;
+        }
+
+        if (importedSales.length > 0) {
+          const formatted = importedSales.map((s, idx) => ({
+            id: s.id || ('sale_' + Date.now() + '_' + idx),
+            date: s.date || new Date().toISOString().split('T')[0],
+            card: Number(s.card) || 0,
+            bankCommission: Number(s.bankCommission || s.comm) || 0,
+            transfer: Number(s.transfer) || 0,
+            cash: Number(s.cash) || 0,
+            net: Number(s.net) || (((Number(s.card) || 0) - (Number(s.bankCommission || s.comm) || 0)) + (Number(s.transfer) || 0) + (Number(s.cash) || 0)),
+            notes: s.notes || ''
+          }));
+
+          const merge = confirm('تم العثور على ' + formatted.length + ' عملية بيع.\n\nهل ترغب في دمجها مع المبيعات الحالية؟\n(اضغط موافق للدمج والإضافة، أو اضغط إلغاء لاستبدال السجلات القديمة)');
+          if (merge) {
+            salesData = [...formatted, ...salesData];
+          } else {
+            salesData = formatted;
+          }
+          saveDataToStorage(true);
+          showToast('تم رفع وحفظ ' + formatted.length + ' عملية بيع بنجاح!', 'success');
+          return;
+        }
+      }
+
+      // 2. فحص ملف CSV / نصي (Excel exported CSV)
+      const lines = text.split(/\r?\n/).filter(line => line.trim().length > 0);
+      if (lines.length > 0) {
+        const parsedRows = [];
+        const firstLineParts = lines[0].split(/[,;\t]/);
+        const startIndex = isNaN(parseFloat(firstLineParts[1])) ? 1 : 0; // تجاوز سطر العناوين إن وجد
+
+        for (let i = startIndex; i < lines.length; i++) {
+          const cols = lines[i].split(/[,;\t]/).map(c => c.trim().replace(/^["']|["']$/g, ''));
+          if (cols.length < 2) continue;
+
+          const date = cols[0] || new Date().toISOString().split('T')[0];
+          const card = parseFloat(cols[1]) || 0;
+          const bankCommission = parseFloat(cols[2]) || 0;
+          const transfer = parseFloat(cols[3]) || 0;
+          const cash = parseFloat(cols[4]) || 0;
+          const notes = cols[5] || '';
+          const net = (card - bankCommission) + transfer + cash;
+
+          parsedRows.push({
+            id: 'sale_' + Date.now() + '_' + i,
+            date,
+            card,
+            bankCommission,
+            transfer,
+            cash,
+            net,
+            notes
+          });
+        }
+
+        if (parsedRows.length > 0) {
+          salesData = [...parsedRows, ...salesData];
+          saveDataToStorage(true);
+          showToast('تم رفع واستيراد ' + parsedRows.length + ' عملية بيع من الملف بنجاح!', 'success');
+        } else {
+          showToast('لم يتم العثور على بيانات مبيعات صالحة في الملف المرفوع', 'error');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      showToast('خطأ أثناء قراءة الملف، تأكد من صحة التنسيق (JSON أو CSV)', 'error');
+    }
+  };
+  reader.readAsText(file, 'utf-8');
+  event.target.value = '';
+}
+
+function restoreEmergencySnapshot() {
+  const raw = localStorage.getItem(STORAGE_BACKUP_SNAPSHOT_KEY);
+  if (!raw) {
+    showToast('لا توجد نسخة طوارئ احتياطية محفوظة حالياً', 'info');
+    return;
+  }
+  try {
+    const snap = JSON.parse(raw);
+    const dateFormatted = new Date(snap.timestamp).toLocaleString('ar-SA');
+    const salesCount = snap.sales ? snap.sales.length : 0;
+    const expCount = snap.expenses ? snap.expenses.length : 0;
+
+    if (confirm('هل ترغب في استعادة نسخة الطوارئ المحفوظة تلقائياً بتاريخ (' + dateFormatted + ')؟\nتحتوي على: ' + salesCount + ' مبيعات و ' + expCount + ' مصاريف.')) {
+      if (Array.isArray(snap.sales)) salesData = snap.sales;
+      if (Array.isArray(snap.expenses)) expensesData = snap.expenses;
+      saveDataToStorage(true);
+      showToast('تمت استعادة نسخة الطوارئ بنجاح!', 'success');
+    }
+  } catch (err) {
+    showToast('حدث خطأ في قراءة نسخة الطوارئ', 'error');
+  }
+}
+
+function promptChangeCloudBin() {
+  const current = activeCloudBinId;
+  const newId = prompt('أدخل كود المزامنة السحابية المشترك بين أجهزتك:\n(أو اتركه فارغاً لتوليد كود خاص جديد ومستقل لجهازك فقط)', current);
+  if (newId === null) return;
+
+  let finalId = newId.trim();
+  if (!finalId) {
+    finalId = 'matar_' + Math.random().toString(36).substring(2, 9);
+  }
+
+  activeCloudBinId = finalId;
+  localStorage.setItem(CLOUD_BIN_STORAGE_KEY, activeCloudBinId);
+  const displayCode = document.getElementById('displaySyncBinId');
+  if (displayCode) displayCode.textContent = activeCloudBinId;
+
+  pushDataToCloud(true);
+  showToast('تم ضبط كود المزامنة الجديد: ' + activeCloudBinId, 'success');
+}
+
 // =========================================================
 // 12. محرك المزامنة السحابية الفورية (Real-Time Cloud Sync)
 // =========================================================
@@ -1422,17 +1623,22 @@ function updateCloudBadgeStatus(status, text) {
   }
 }
 
-async function pushDataToCloud() {
+async function pushDataToCloud(notify = false) {
+  if (!isCloudSyncEnabled()) {
+    if (notify) showToast('المزامنة السحابية متوقفة حالياً من الإعدادات', 'info');
+    return;
+  }
   if (isSyncing) return;
   isSyncing = true;
-  updateCloudBadgeStatus('syncing', 'جاري المزامنة...');
+  updateCloudBadgeStatus('syncing', 'جاري الحفظ بالسحابة...');
 
   try {
+    const timestamp = Date.now();
     const payload = {
       sales: salesData,
       expenses: expensesData,
       securityPin: getSecurityPin(),
-      lastUpdated: Date.now()
+      lastUpdated: timestamp
     };
 
     const res = await fetch(CLOUD_API_BASE + activeCloudBinId, {
@@ -1442,23 +1648,32 @@ async function pushDataToCloud() {
     });
 
     if (res.ok) {
-      lastCloudSyncTimestamp = payload.lastUpdated;
-      updateCloudBadgeStatus('synced', 'متزامن سحابياً');
+      lastCloudSyncTimestamp = timestamp;
+      lastLocalUpdateTimestamp = timestamp;
+      localStorage.setItem(STORAGE_LAST_UPDATED_KEY, String(timestamp));
+      updateCloudBadgeStatus('synced', 'متزامن ومحفوظ بالسحابة');
+      if (notify) showToast('تم حفظ ورفع كافة البيانات إلى السحابة بنجاح!', 'success');
     } else {
       updateCloudBadgeStatus('offline', 'تعذر الحفظ بالسحابة');
+      if (notify) showToast('تعذر الحفظ بالسحابة، بياناتك محفوظة محلياً بأمان تام', 'warning');
     }
   } catch (err) {
     console.warn('Cloud sync push error:', err);
     updateCloudBadgeStatus('offline', 'غير متصل بالسحابة');
+    if (notify) showToast('تم حفظ البيانات محلياً على جهازك بأمان', 'info');
   } finally {
     isSyncing = false;
   }
 }
 
 async function pullDataFromCloud(isManual = false) {
+  if (!isCloudSyncEnabled()) {
+    updateCloudBadgeStatus('offline', 'المزامنة معطلة');
+    return;
+  }
   if (isSyncing) return;
   isSyncing = true;
-  updateCloudBadgeStatus('syncing', 'جاري التحديث...');
+  updateCloudBadgeStatus('syncing', 'جاري الفحص...');
 
   try {
     const res = await fetch(CLOUD_API_BASE + activeCloudBinId + '?t=' + Date.now());
@@ -1466,19 +1681,41 @@ async function pullDataFromCloud(isManual = false) {
       const data = await res.json();
       if (data && typeof data === 'object') {
         const cloudTimestamp = Number(data.lastUpdated) || 0;
-        
-        if (isManual || cloudTimestamp > lastCloudSyncTimestamp || (salesData.length === 0 && Array.isArray(data.sales) && data.sales.length > 0)) {
+        const localTimestamp = Number(localStorage.getItem(STORAGE_LAST_UPDATED_KEY)) || 0;
+        const cloudSales = Array.isArray(data.sales) ? data.sales : [];
+        const cloudExpenses = Array.isArray(data.expenses) ? data.expenses : [];
+
+        // 1. حماية حاسمة: إذا كانت السحابة فارغة بينما يوجد لدى المستخدم مبيعات أو مصاريف محلية،
+        // لا نحذف بيانات المستخدم المحلية أبداً، بل نرفع البيانات المحلية للسحابة فوراً لحفظها!
+        if (cloudSales.length === 0 && salesData.length > 0) {
+          console.log('السحابة فارغة بينما يوجد مبيعات محلية: رفع البيانات المحلية لحمايتها وتحديث السحابة');
+          isSyncing = false;
+          await pushDataToCloud(false);
+          return;
+        }
+
+        // 2. إذا كانت البيانات المحلية أحدث من السحابة ولم يكن الطلب استعادة يدوية،
+        // نقوم برفع التعديلات المحلية للسحابة لتحديثها بدلاً من مسحها
+        if (localTimestamp > cloudTimestamp && !isManual) {
+          console.log('البيانات المحلية أحدث من السحابة: مزامنة بالرفع');
+          isSyncing = false;
+          await pushDataToCloud(false);
+          return;
+        }
+
+        // 3. تحديث البيانات المحلية من السحابة إذا كانت أحدث أو إذا كان طلباً يدوياً
+        if (isManual || cloudTimestamp > localTimestamp || (salesData.length === 0 && cloudSales.length > 0)) {
           if (Array.isArray(data.sales)) salesData = data.sales;
           if (Array.isArray(data.expenses)) expensesData = data.expenses;
           if (data.securityPin) setSecurityPin(data.securityPin);
-          
+
           lastCloudSyncTimestamp = cloudTimestamp || Date.now();
-          
           localStorage.setItem(STORAGE_SALES_KEY, JSON.stringify(salesData));
           localStorage.setItem(STORAGE_EXPENSES_KEY, JSON.stringify(expensesData));
-          
-          renderAll();
-          if (isManual) showToast('تمت المزامنة وتحديث البيانات بنجاح!', 'success');
+          localStorage.setItem(STORAGE_LAST_UPDATED_KEY, String(lastCloudSyncTimestamp));
+
+          updateAllViews();
+          if (isManual) showToast('تمت المزامنة وجلب أحدث البيانات من السحابة بنجاح!', 'success');
         }
         updateCloudBadgeStatus('synced', 'متزامن سحابياً');
       }
@@ -1494,11 +1731,12 @@ async function pullDataFromCloud(isManual = false) {
 }
 
 function scheduleCloudPush() {
-  updateCloudBadgeStatus('syncing', 'جاري الحفظ...');
+  if (!isCloudSyncEnabled()) return;
+  updateCloudBadgeStatus('syncing', 'جاري الحفظ بالسحابة...');
   clearTimeout(syncDebounceTimer);
   syncDebounceTimer = setTimeout(() => {
-    pushDataToCloud();
-  }, 400);
+    pushDataToCloud(false);
+  }, 450);
 }
 
 function triggerManualSync(notify = true) {
@@ -1524,19 +1762,26 @@ function copyCloudSyncLink() {
 document.addEventListener('DOMContentLoaded', () => {
   initLiveClockAndDate();
   initCloudSyncConfig();
+  updateCloudSyncToggleUI();
   loadDataFromStorage();
-  pullDataFromCloud(false);
+  updateAllViews();
+
+  if (isCloudSyncEnabled()) {
+    pullDataFromCloud(false);
+  }
 
   // تحديث تلقائي فوري عند فتح الجوال أو الرجوع لصفحة التطبيق
-  window.addEventListener('focus', () => pullDataFromCloud(false));
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) pullDataFromCloud(false);
+  window.addEventListener('focus', () => {
+    if (isCloudSyncEnabled()) pullDataFromCloud(false);
   });
-  // مزامنة دورية كل 15 ثانية في الخلفية
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && isCloudSyncEnabled()) pullDataFromCloud(false);
+  });
+  // مزامنة دورية كل 20 ثانية في الخلفية
   setInterval(() => {
-    if (!document.hidden) pullDataFromCloud(false);
-  }, 15000);
-  updateAllViews();
+    if (!document.hidden && isCloudSyncEnabled()) pullDataFromCloud(false);
+  }, 20000);
+
   initNavigation();
-    initPWAAndInstall();
+  initPWAAndInstall();
 });

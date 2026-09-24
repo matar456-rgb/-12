@@ -1,5 +1,5 @@
 // Service Worker لتطبيق المبيعات والمصاريف للجوال (Network First Strategy)
-const CACHE_NAME = 'sales-expenses-app-v2';
+const CACHE_NAME = 'sales-expenses-app-v3';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
