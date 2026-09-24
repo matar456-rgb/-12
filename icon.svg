@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#060b13"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#10b981" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  
+  <!-- خلفية مربعة بحواف منحنية فخمة -->
+  <rect width="512" height="512" rx="120" fill="url(#bgGrad)"/>
+  <rect x="12" y="12" width="488" height="488" rx="108" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"/>
+  
+  <!-- دائرة توهج خفيفة -->
+  <circle cx="256" cy="256" r="160" fill="url(#emeraldGrad)" opacity="0.12" filter="url(#glow)"/>
+
+  <!-- أيقونة المحفظة والمخطط المالي -->
+  <g transform="translate(106, 106)" filter="url(#glow)">
+    <!-- بطاقة رصيد -->
+    <rect x="20" y="50" width="260" height="170" rx="24" fill="url(#emeraldGrad)"/>
+    <rect x="20" y="85" width="260" height="30" fill="#064e3b" opacity="0.4"/>
+    
+    <!-- خط الرسم البياني الصاعد -->
+    <path d="M 40 180 L 95 130 L 140 155 L 210 90 L 255 100" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="210" cy="90" r="8" fill="#ffffff"/>
+    
+    <!-- رمز العملة ر.س -->
+    <circle cx="220" cy="180" r="22" fill="#ffffff" opacity="0.9"/>
+    <text x="220" y="187" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="#059669" text-anchor="middle">ر.س</text>
+  </g>
+</svg>

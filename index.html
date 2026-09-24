@@ -1,0 +1,4073 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>نظام إدارة المبيعات والمصاريف المتكامل</title>
+  
+  <!-- وسوم PWA المخصصة لتثبيت التطبيق على شاشة الجوال -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="المبيعات والمصاريف">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZjE3MmEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDYwYjEzIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJlbWVyYWxkR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzNGQzOTkiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDU5NjY5Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjeWFuR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzOGJkZjgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDI4NGM3Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGZpbHRlciBpZD0iZ2xvdyIgeD0iLTIwJSIgeT0iLTIwJSIgd2lkdGg9IjE0MCUiIGhlaWdodD0iMTQwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjEwIiBmbG9vZC1jb2xvcj0iIzEwYjk4MSIgZmxvb2Qtb3BhY2l0eT0iMC40Ii8+CiAgICA8L2ZpbHRlcj4KICA8L2RlZnM+CiAgCiAgPCEtLSDYrtmE2YHZitipINmF2LHYqNi52Kkg2KjYrdmI2KfZgSDZhdmG2K3ZhtmK2Kkg2YHYrtmF2KkgLS0+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMjAiIGZpbGw9InVybCgjYmdHcmFkKSIvPgogIDxyZWN0IHg9IjEyIiB5PSIxMiIgd2lkdGg9IjQ4OCIgaGVpZ2h0PSI0ODgiIHJ4PSIxMDgiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIiBzdHJva2Utd2lkdGg9IjQiLz4KICAKICA8IS0tINiv2KfYptix2Kkg2KrZiNmH2Kwg2K7ZgdmK2YHYqSAtLT4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjE2MCIgZmlsbD0idXJsKCNlbWVyYWxkR3JhZCkiIG9wYWNpdHk9IjAuMTIiIGZpbHRlcj0idXJsKCNnbG93KSIvPgoKICA8IS0tINij2YrZgtmI2YbYqSDYp9mE2YXYrdmB2LjYqSDZiNin2YTZhdiu2LfYtyDYp9mE2YXYp9mE2YogLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTA2LCAxMDYpIiBmaWx0ZXI9InVybCgjZ2xvdykiPgogICAgPCEtLSDYqNi32KfZgtipINix2LXZitivIC0tPgogICAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjE3MCIgcng9IjI0IiBmaWxsPSJ1cmwoI2VtZXJhbGRHcmFkKSIvPgogICAgPHJlY3QgeD0iMjAiIHk9Ijg1IiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjMDY0ZTNiIiBvcGFjaXR5PSIwLjQiLz4KICAgIAogICAgPCEtLSDYrti3INin2YTYsdiz2YUg2KfZhNio2YrYp9mG2Yog2KfZhNi12KfYudivIC0tPgogICAgPHBhdGggZD0iTSA0MCAxODAgTCA5NSAxMzAgTCAxNDAgMTU1IEwgMjEwIDkwIEwgMjU1IDEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogICAgPGNpcmNsZSBjeD0iMjEwIiBjeT0iOTAiIHI9IjgiIGZpbGw9IiNmZmZmZmYiLz4KICAgIAogICAgPCEtLSDYsdmF2LIg2KfZhNi52YXZhNipINixLtizIC0tPgogICAgPGNpcmNsZSBjeD0iMjIwIiBjeT0iMTgwIiByPSIyMiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC45Ii8+CiAgICA8dGV4dCB4PSIyMjAiIHk9IjE4NyIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzA1OTY2OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+2LEu2LM8L3RleHQ+CiAgPC9nPgo8L3N2Zz4K">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZjE3MmEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDYwYjEzIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJlbWVyYWxkR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzNGQzOTkiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDU5NjY5Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjeWFuR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzOGJkZjgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDI4NGM3Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGZpbHRlciBpZD0iZ2xvdyIgeD0iLTIwJSIgeT0iLTIwJSIgd2lkdGg9IjE0MCUiIGhlaWdodD0iMTQwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjEwIiBmbG9vZC1jb2xvcj0iIzEwYjk4MSIgZmxvb2Qtb3BhY2l0eT0iMC40Ii8+CiAgICA8L2ZpbHRlcj4KICA8L2RlZnM+CiAgCiAgPCEtLSDYrtmE2YHZitipINmF2LHYqNi52Kkg2KjYrdmI2KfZgSDZhdmG2K3ZhtmK2Kkg2YHYrtmF2KkgLS0+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMjAiIGZpbGw9InVybCgjYmdHcmFkKSIvPgogIDxyZWN0IHg9IjEyIiB5PSIxMiIgd2lkdGg9IjQ4OCIgaGVpZ2h0PSI0ODgiIHJ4PSIxMDgiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIiBzdHJva2Utd2lkdGg9IjQiLz4KICAKICA8IS0tINiv2KfYptix2Kkg2KrZiNmH2Kwg2K7ZgdmK2YHYqSAtLT4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjE2MCIgZmlsbD0idXJsKCNlbWVyYWxkR3JhZCkiIG9wYWNpdHk9IjAuMTIiIGZpbHRlcj0idXJsKCNnbG93KSIvPgoKICA8IS0tINij2YrZgtmI2YbYqSDYp9mE2YXYrdmB2LjYqSDZiNin2YTZhdiu2LfYtyDYp9mE2YXYp9mE2YogLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTA2LCAxMDYpIiBmaWx0ZXI9InVybCgjZ2xvdykiPgogICAgPCEtLSDYqNi32KfZgtipINix2LXZitivIC0tPgogICAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjE3MCIgcng9IjI0IiBmaWxsPSJ1cmwoI2VtZXJhbGRHcmFkKSIvPgogICAgPHJlY3QgeD0iMjAiIHk9Ijg1IiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjMDY0ZTNiIiBvcGFjaXR5PSIwLjQiLz4KICAgIAogICAgPCEtLSDYrti3INin2YTYsdiz2YUg2KfZhNio2YrYp9mG2Yog2KfZhNi12KfYudivIC0tPgogICAgPHBhdGggZD0iTSA0MCAxODAgTCA5NSAxMzAgTCAxNDAgMTU1IEwgMjEwIDkwIEwgMjU1IDEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogICAgPGNpcmNsZSBjeD0iMjEwIiBjeT0iOTAiIHI9IjgiIGZpbGw9IiNmZmZmZmYiLz4KICAgIAogICAgPCEtLSDYsdmF2LIg2KfZhNi52YXZhNipINixLtizIC0tPgogICAgPGNpcmNsZSBjeD0iMjIwIiBjeT0iMTgwIiByPSIyMiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC45Ii8+CiAgICA8dGV4dCB4PSIyMjAiIHk9IjE4NyIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzA1OTY2OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+2LEu2LM8L3RleHQ+CiAgPC9nPgo8L3N2Zz4K">
+
+  <!-- خط Cairo الأنيق من Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- html2pdf.js لتصدير PDF عالي الجودة يدعم العربية -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- ملف التنسيق -->
+  <style>
+/* =========================================================
+   نظام التصميم الفاخر لتطبيق إدارة المبيعات والمصاريف للجوال (RTL)
+   ========================================================= */
+
+:root {
+  --bg-main: #090e17;
+  --bg-surface: #101928;
+  --bg-card: rgba(18, 28, 45, 0.85);
+  --bg-card-hover: rgba(26, 39, 62, 0.95);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-focus: #10b981;
+  
+  /* تدرجات ألوان فاخرة */
+  --primary: #10b981;
+  --primary-light: #34d399;
+  --primary-glow: rgba(16, 185, 129, 0.25);
+  
+  --cyan: #06b6d4;
+  --cyan-glow: rgba(6, 182, 212, 0.2);
+  
+  --warning: #f59e0b;
+  --warning-glow: rgba(245, 158, 11, 0.2);
+  
+  --danger: #ef4444;
+  --danger-glow: rgba(239, 68, 68, 0.2);
+  
+  --indigo: #6366f1;
+  
+  /* النصوص */
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  
+  /* الظلال والتأثيرات */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+  --shadow-neon: 0 0 20px var(--primary-glow);
+  
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+  
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+}
+
+/* إعادة الضبط الأساسي */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: #05080e;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.06) 0%, transparent 40%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  direction: rtl;
+  text-align: right;
+  line-height: 1.4;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+/* حاوية التطبيق مخصصة بنسبة 100% لأبعاد الجوال (Mobile Dimensions) */
+.app-container {
+  width: 100%;
+  max-width: 430px; /* أبعاد شاشة الهاتف الذكي المحددة */
+  margin: 0 auto;
+  padding: 8px 10px 80px; /* مساحة مختصرة للجوال */
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg-main);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    max-width: 100%;
+    padding: 6px 8px 76px;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+/* =========================================================
+   1. الشريط العلوي المباشر المختصر (Compact Live Top Bar)
+   ========================================================= */
+
+.top-header {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  padding-top: max(8px, env(safe-area-inset-top, 8px));
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 10px;
+  position: sticky;
+  top: 4px;
+  z-index: 50;
+  transition: var(--transition);
+}
+
+.header-main-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* الساعة الرقمية الحية المختصرة */
+.live-clock-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 4px 8px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.clock-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.time-digits {
+  font-family: 'Courier New', Courier, monospace, var(--font-family);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #34d399;
+  text-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+}
+
+.period-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.2);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.live-pulse {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  animation: pulseAnimation 1.5s infinite;
+}
+
+.live-text {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* معلومات التاريخ وعنوان التطبيق */
+.header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: left;
+}
+
+.current-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.current-date-badge i {
+  color: var(--cyan);
+}
+
+.app-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-icon-spin {
+  color: var(--primary);
+  font-size: 0.85rem;
+}
+
+/* شبكة الإحصائيات السريعة المختصرة */
+.stats-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.stat-icon-wrapper {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  opacity: 0.85;
+}
+
+.stat-sales .stat-icon-wrapper { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.stat-expenses .stat-icon-wrapper { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.stat-profit .stat-icon-wrapper { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+
+.stat-meta {
+  margin-top: 1px;
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-value-group {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin: 2px 0 3px;
+}
+
+.stat-number {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.stat-currency {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  white-space: nowrap;
+}
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+}
+
+.stat-sales::before { background: linear-gradient(90deg, #10b981, #06b6d4); }
+.stat-expenses::before { background: linear-gradient(90deg, #ef4444, #f59e0b); }
+.stat-profit::before { background: linear-gradient(90deg, #6366f1, #10b981); }
+
+.stat-icon-wrapper {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.stat-sales .stat-icon-wrapper { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.stat-expenses .stat-icon-wrapper { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.stat-profit .stat-icon-wrapper { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+
+.stat-meta {
+  margin-top: 2px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  display: block;
+}
+
+.stat-value-group {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 3px 0 6px;
+}
+
+.stat-number {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.stat-currency {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+}
+
+.stat-pill.positive {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+.stat-pill.negative {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.stat-pill.profit {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+}
+
+/* =========================================================
+   2. بنية الأقسام والتبويبات
+   ========================================================= */
+
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-main);
+}
+
+.section-title i {
+  color: var(--primary);
+}
+
+.section-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* الأزرار العامة */
+.btn {
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text-main);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+}
+
+.btn-outline:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: var(--cyan);
+}
+
+.btn-outline-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.btn-outline-danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--danger);
+}
+
+.btn-sm {
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* =========================================================
+   3. جداول البيانات الموحدة المخصصة للجوال
+   ========================================================= */
+
+.data-table-container {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 20px;
+}
+
+.table-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* تخصيص شريط التمرير الأفقي للجوال */
+.table-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+.table-scroll-wrapper::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+.table-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.unified-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+  font-size: 0.85rem;
+}
+
+.unified-table th {
+  background: rgba(16, 25, 40, 0.95);
+  color: var(--text-muted);
+  font-weight: 700;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: right;
+  font-size: 0.8rem;
+}
+
+.unified-table th.th-highlight {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.unified-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.unified-table tbody tr {
+  transition: var(--transition);
+}
+
+.unified-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* عمود الصافي المميز */
+.cell-net {
+  font-weight: 800;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.05);
+}
+
+/* شريط الإجماليات السفلي */
+.summary-tfoot td {
+  background: rgba(15, 23, 42, 0.95);
+  font-weight: 800;
+  padding: 13px 14px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+  font-size: 0.88rem;
+}
+
+.total-label-cell {
+  color: var(--text-muted);
+}
+
+.total-net-cell {
+  color: #34d399;
+  font-size: 1rem;
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+}
+
+.total-meta-cell {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+/* شارات حالات المصاريف */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.paid {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-badge.unpaid {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-badge.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* أزرار الإجراءات في الجداول */
+.table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.action-btn.delete:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.action-btn.status-toggle:hover {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+/* بطاقات ملخص حالات المصاريف */
+.expenses-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.mini-summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-summary-card .icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+
+/* =========================================================
+   3. جداول وبطاقات البيانات المختصرة للجوال
+   ========================================================= */
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+}
+
+.section-title i {
+  color: var(--primary);
+  font-size: 0.88rem;
+}
+
+.section-subtitle {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+/* الأزرار العامة المختصرة */
+.btn {
+  font-family: var(--font-family);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(5, 150, 105, 0.35);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+}
+
+.btn-outline-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.btn-sm {
+  padding: 4px 9px;
+  font-size: 0.72rem;
+  border-radius: 6px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* بطاقات ملخص حالات المصاريف المختصرة */
+.expenses-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.mini-summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mini-summary-card .icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.mini-summary-card.paid .icon { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.mini-summary-card.unpaid .icon { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.mini-summary-card.pending .icon { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.mini-summary-card.total .icon { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+
+.mini-summary-card .content {
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-summary-card .content span {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.mini-summary-card .content strong {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* قسم التقارير المختصر للجوال */
+.reports-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.report-action-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.report-action-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+}
+
+.sales-theme::before { background: linear-gradient(90deg, #10b981, #059669); }
+.expenses-theme::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+.summary-theme::before { background: linear-gradient(90deg, #6366f1, #06b6d4); }
+
+.report-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.report-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sales-theme .report-icon { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.expenses-theme .report-icon { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.summary-theme .report-icon { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+
+.report-info h3 {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.report-info p {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.report-stats-brief {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.brief-item span {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+}
+
+.brief-item strong {
+  font-size: 0.78rem;
+  color: #fff;
+}
+
+.report-actions-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* بطاقة الإعدادات المختصرة */
+.settings-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.settings-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+}
+
+.settings-desc {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.settings-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* =========================================================
+   5. شريط التنقل السفلي المخصص للجوال (430px Max-Width)
+   ========================================================= */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px; /* محصور تماماً بأبعاد الجوال */
+  height: 58px;
+  background: rgba(11, 18, 30, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-color);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px env(safe-area-inset-bottom, 0px);
+  z-index: 90;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 480px) {
+  .bottom-nav {
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.nav-item {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-family: var(--font-family);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 6px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.nav-item i {
+  font-size: 1.05rem;
+  transition: var(--transition);
+}
+
+.nav-item:hover, .nav-item.active {
+  color: var(--primary);
+}
+
+.nav-item.active i {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 6px var(--primary-glow));
+}
+
+/* =========================================================
+   6. النوافذ المنبثقة (Modals) ونماذج الإدخال
+   ========================================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================================================
+   6. النوافذ المنبثقة المختصرة للجوال (Bottom Sheet 430px)
+   ========================================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-end; /* سحب من أسفل الشاشة */
+  justify-content: center;
+  padding: 0;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 430px; /* أبعاد شاشة الجوال الدقيقة */
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  padding: 12px 14px 22px;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-card {
+  transform: translateY(0);
+}
+
+.bottom-sheet-handle {
+  display: block;
+  width: 38px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  margin: 0 auto 10px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.modal-header h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.form-group {
+  margin-bottom: 8px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.form-group label i {
+  color: var(--cyan);
+  margin-left: 3px;
+}
+
+.form-row {
+  display: flex;
+  gap: 8px;
+}
+
+.col-6 {
+  flex: 1;
+}
+
+.form-input {
+  width: 100%;
+  font-family: var(--font-family);
+  font-size: 0.82rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 7px 10px;
+  color: #fff;
+  transition: var(--transition);
+  direction: rtl;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-glow);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+select.form-input option {
+  background: #111a28;
+  color: #fff;
+}
+
+/* صندوق الحساب التلقائي المختصر داخل نموذج المبيعات */
+.auto-calc-box {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px dashed rgba(16, 185, 129, 0.4);
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+}
+
+.calc-formula-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.calc-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calc-result-row span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.calc-result-row strong {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #34d399;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 10px;
+  margin-top: 4px;
+}
+
+/* خيارات الإضافة السريعة */
+.quick-choices-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quick-choice-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: right;
+  cursor: pointer;
+  transition: var(--transition);
+  color: #fff;
+  font-family: var(--font-family);
+}
+
+.quick-choice-btn .choice-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.choice-sales .choice-icon { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.choice-expense .choice-icon { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+
+.quick-choice-btn .choice-text strong {
+  font-size: 0.85rem;
+  display: block;
+}
+
+.quick-choice-btn .choice-text small {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   سيل بطاقات الجوال المختصرة (Mobile Compact Stream)
+   ========================================================= */
+
+/* =========================================================
+   نافذة الحماية بالرقم السري وتأكيد الحذف (Security PIN Modal)
+   ========================================================= */
+/* =========================================================
+   شارات وأدوات المزامنة السحابية المباشرة (Cloud Sync)
+   ========================================================= */
+.cloud-sync-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+  padding: 4px 9px;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.cloud-sync-status:hover {
+  background: rgba(16, 185, 129, 0.22);
+  transform: translateY(-1px);
+}
+
+.cloud-sync-status.syncing {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+.cloud-sync-status.offline {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+
+.cloud-sync-status.synced {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.cloud-icon {
+  font-size: 0.75rem;
+}
+
+/* بطاقة وتنسيقات جوجل درايف Google Drive */
+.gdrive-settings-card {
+  border-right: 3px solid #10b981 !important;
+}
+.btn-success {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-success:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+.gdrive-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.cloud-settings-card {
+  border-right: 3px solid #38bdf8 !important;
+}
+
+.settings-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.badge-status-cloud {
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cloud-sync-info-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.sync-id-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.75rem;
+}
+
+.sync-id-label {
+  color: var(--text-muted);
+}
+
+.sync-id-code {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.sync-actions-row {
+  display: flex;
+  gap: 8px;
+}
+
+.pin-modal-card {
+  text-align: center;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.pin-icon-wrapper {
+  width: 54px;
+  height: 54px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 2px solid rgba(239, 68, 68, 0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+.pin-lock-icon {
+  font-size: 1.4rem;
+  color: #ef4444;
+}
+
+.pin-modal-msg {
+  font-size: 0.88rem;
+  color: #f1f5f9;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.pin-input-container {
+  margin: 0 auto 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.pin-input {
+  width: 200px;
+  text-align: center;
+  font-size: 1.6rem;
+  letter-spacing: 10px;
+  font-weight: 900;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid var(--border-color);
+  color: #38bdf8;
+  transition: var(--transition);
+  direction: ltr;
+}
+
+.pin-input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.pin-input.input-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.45) !important;
+  color: #ef4444 !important;
+}
+
+.pin-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.pin-hint strong {
+  color: #38bdf8;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.pin-error-msg {
+  color: #f87171;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-top: 6px;
+  background: rgba(239, 68, 68, 0.12);
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.shake-anim {
+  animation: shakeKeypad 0.4s ease-in-out;
+}
+
+@keyframes shakeKeypad {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.mobile-cards-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.mobile-record-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  backdrop-filter: blur(14px);
+}
+
+.mobile-record-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #10b981, #06b6d4);
+}
+
+.mobile-record-card.expense-card::before {
+  background: linear-gradient(180deg, #f59e0b, #ef4444);
+}
+
+.card-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-date-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-date-badge i {
+  color: var(--cyan);
+}
+
+.card-main-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.amount-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.amount-val-highlight {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #34d399;
+  letter-spacing: -0.3px;
+}
+
+.amount-val-expense {
+  color: #fbbf24;
+  font-size: 1.25rem;
+}
+
+/* شبكة تفاصيل العملية بالبطاقة مختصرة */
+.card-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 6px 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.detail-chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+}
+
+.detail-chip span {
+  color: var(--text-muted);
+}
+
+.detail-chip strong {
+  color: #fff;
+}
+
+.detail-chip strong.comm {
+  color: #f87171;
+}
+
+.card-notes-row {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* الإجمالي العائم في وضع بطاقات الجوال المختصر */
+.mobile-sticky-summary {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-sticky-summary .summary-item span {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.mobile-sticky-summary .summary-item strong {
+  font-size: 1rem;
+  color: #34d399;
+  font-weight: 900;
+}
+
+.mobile-sticky-summary .summary-item-sub span {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* التنبيهات Toast */
+.toast {
+  position: fixed;
+  bottom: 74px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   8. تنسيقات خاصة بالطباعة وتصدير PDF (Print & PDF Styling)
+   ========================================================= */
+
+.pdf-print-page {
+  font-family: 'Cairo', sans-serif !important;
+  direction: rtl !important;
+  text-align: right !important;
+  background: #ffffff !important;
+  color: #1e293b !important;
+  padding: 20px 24px !important;
+}
+
+.pdf-header {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pdf-title-block h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.pdf-title-block p {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 2px 0 0;
+}
+
+.pdf-meta-block {
+  text-align: left;
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.pdf-meta-block span {
+  display: block;
+}
+
+.pdf-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 0.8rem;
+}
+
+.pdf-table th {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  padding: 8px 10px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.pdf-table td {
+  border: 1px solid #e2e8f0 !important;
+  padding: 7px 10px;
+  color: #1e293b !important;
+}
+
+.pdf-table tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.pdf-table tfoot td {
+  background-color: #e2e8f0 !important;
+  font-weight: 800;
+  border-top: 2px solid #94a3b8 !important;
+}
+
+.pdf-summary-cards {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pdf-sum-card {
+  flex: 1;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.pdf-sum-card span {
+  display: block;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.pdf-sum-card strong {
+  display: block;
+  font-size: 1.1rem;
+  color: #0f172a;
+  margin-top: 4px;
+}
+
+.pdf-footer {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 8px;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 24px 12px;
+  color: var(--text-muted);
+}
+
+.empty-state .empty-icon {
+  font-size: 2rem;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.empty-state p {
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+</style>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- 1. الشريط العلوي المباشر (Live Top Bar) -->
+    <header class="top-header">
+      <div class="header-main-row">
+        <!-- الساعة الرقمية الحية -->
+        <div class="live-clock-card" id="clockCard">
+          <div class="clock-display">
+            <span id="liveTime" class="time-digits">12:00:00</span>
+            <span id="livePeriod" class="period-badge">م</span>
+          </div>
+          <div class="live-pulse">
+            <span class="pulse-dot"></span>
+            <span class="live-text">مباشر</span>
+          </div>
+        </div>
+
+        <!-- معلومات التاريخ وشعار التطبيق -->
+        <div class="header-info">
+          <div class="cloud-sync-status synced" id="cloudSyncBadge" onclick="triggerManualSync()" title="انقر لتحديث المزامنة السحابية فوراً">
+            <i class="fa-solid fa-cloud-arrow-up cloud-icon"></i>
+            <span id="cloudSyncText">سحابة متصلة</span>
+          </div>
+          <div class="current-date-badge" id="liveDate">
+            <i class="fa-regular fa-calendar-check"></i>
+            <span id="dateString">الإثنين، 21 سبتمبر 2026</span>
+          </div>
+          <h1 class="app-title">
+            <i class="fa-solid fa-chart-pie app-icon-spin"></i>
+            المبيعات والمصاريف
+          </h1>
+        </div>
+      </div>
+
+      <!-- بطاقات الإحصائيات السريعة الثلاث -->
+      <div class="stats-overview-grid">
+        <!-- صافي المبيعات -->
+        <div class="stat-card stat-sales">
+          <div class="stat-icon-wrapper">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </div>
+          <div class="stat-meta">
+            <span class="stat-label">صافي المبيعات</span>
+            <div class="stat-value-group">
+              <span class="stat-number" id="kpiNetSales">0.00</span>
+              <span class="stat-currency">ر.س</span>
+            </div>
+          </div>
+          <span class="stat-pill positive"><i class="fa-solid fa-shield-halved"></i> الإجمالي الفعلي</span>
+        </div>
+
+        <!-- إجمالي المصاريف -->
+        <div class="stat-card stat-expenses">
+          <div class="stat-icon-wrapper">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <div class="stat-meta">
+            <span class="stat-label">إجمالي المصاريف</span>
+            <div class="stat-value-group">
+              <span class="stat-number" id="kpiTotalExpenses">0.00</span>
+              <span class="stat-currency">ر.س</span>
+            </div>
+          </div>
+          <span class="stat-pill negative" id="kpiUnpaidNotice">0.00 غير مدفوع</span>
+        </div>
+
+        <!-- صافي الأرباح -->
+        <div class="stat-card stat-profit" id="profitCard">
+          <div class="stat-icon-wrapper">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <div class="stat-meta">
+            <span class="stat-label">صافي الأرباح</span>
+            <div class="stat-value-group">
+              <span class="stat-number" id="kpiNetProfit">0.00</span>
+              <span class="stat-currency">ر.س</span>
+            </div>
+          </div>
+          <span class="stat-pill profit" id="profitBadge"><i class="fa-solid fa-check"></i> متزن</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. المحتوى الرئيسي المقسم إلى تبويبات -->
+    <main class="main-content">
+      
+      <!-- تبويب 1: المبيعات -->
+      <section id="tab-sales" class="tab-panel active">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">
+              <i class="fa-solid fa-cash-register"></i> سجل المبيعات
+            </h2>
+            <p class="section-subtitle">الصافي = (شبكة - عمولة البنك) + تحويل + كاش</p>
+          </div>
+          <button class="btn btn-primary" id="openSalesModalBtn">
+            <i class="fa-solid fa-plus"></i> إضافة بيع
+          </button>
+        </div>
+
+        <!-- عرض بطاقات الجوال المخصصة للهواتف الذكية -->
+        <div id="salesCardsStream" class="mobile-cards-stream"></div>
+
+        <!-- جدول المبيعات الموحد -->
+        <div class="data-table-container" id="salesTableWrapper" style="display: none;">
+          <div class="table-scroll-wrapper">
+            <table class="unified-table" id="salesTable">
+              <thead>
+                <tr>
+                  <th style="min-width: 105px;">التاريخ</th>
+                  <th style="min-width: 90px;">شبكة (ر.س)</th>
+                  <th style="min-width: 95px;">عمولة البنك</th>
+                  <th style="min-width: 90px;">تحويل (ر.س)</th>
+                  <th style="min-width: 85px;">كاش (ر.س)</th>
+                  <th style="min-width: 105px;" class="th-highlight">الصافي (ر.س)</th>
+                  <th style="min-width: 140px;">ملاحظات</th>
+                  <th style="min-width: 80px;" class="text-center">إجراء</th>
+                </tr>
+              </thead>
+              <tbody id="salesTableBody"></tbody>
+              <tfoot class="summary-tfoot">
+                <tr>
+                  <td class="total-label-cell">الإجمالي الكلي:</td>
+                  <td id="totCard">0.00</td>
+                  <td id="totComm" class="text-danger">0.00</td>
+                  <td id="totTransfer">0.00</td>
+                  <td id="totCash">0.00</td>
+                  <td id="totNet" class="total-net-cell">0.00</td>
+                  <td colspan="2" class="total-meta-cell">صافي بعد خصم العمولة</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <!-- إجمالي عائم في وضع بطاقات الجوال -->
+        <div class="mobile-sticky-summary" id="salesMobileSummary">
+          <div class="summary-item">
+            <span>الصافي الكلي:</span>
+            <strong id="mobTotNet">0.00 ر.س</strong>
+          </div>
+          <div class="summary-item-sub">
+            <span id="mobSalesBreakdown">شبكة: 0 | كاش: 0 | تحويل: 0</span>
+          </div>
+        </div>
+
+        <div id="salesEmptyState" class="empty-state hidden">
+          <i class="fa-solid fa-basket-shopping empty-icon"></i>
+          <p>لا توجد عمليات مبيعات مسجلة بعد</p>
+          <button class="btn btn-sm btn-outline" onclick="openAddSalesModal()">أضف أول عملية الآن</button>
+        </div>
+      </section>
+
+      <!-- تبويب 2: قسم المصاريف -->
+      <section id="tab-expenses" class="tab-panel">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">
+              <i class="fa-solid fa-wallet"></i> سجل المصاريف
+            </h2>
+            <p class="section-subtitle">إدارة وتتبع النفقات وحالات السداد</p>
+          </div>
+          <button class="btn btn-warning" id="openExpensesModalBtn">
+            <i class="fa-solid fa-plus"></i> إضافة مصروف
+          </button>
+        </div>
+
+        <!-- بطاقات ملخص حالات المصاريف -->
+        <div class="expenses-summary-cards">
+          <div class="mini-summary-card paid">
+            <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="content">
+              <span>مدفوع</span>
+              <strong id="expSummaryPaid">0.00 ر.س</strong>
+            </div>
+          </div>
+          <div class="mini-summary-card unpaid">
+            <div class="icon"><i class="fa-solid fa-circle-xmark"></i></div>
+            <div class="content">
+              <span>غير مدفوع / مستحق</span>
+              <strong id="expSummaryUnpaid">0.00 ر.س</strong>
+            </div>
+          </div>
+          <div class="mini-summary-card pending">
+            <div class="icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="content">
+              <span>في الانتظار</span>
+              <strong id="expSummaryPending">0.00 ر.س</strong>
+            </div>
+          </div>
+          <div class="mini-summary-card total">
+            <div class="icon"><i class="fa-solid fa-calculator"></i></div>
+            <div class="content">
+              <span>إجمالي المصاريف</span>
+              <strong id="expSummaryTotal">0.00 ر.س</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- عرض بطاقات المصاريف للجوال -->
+        <div id="expensesCardsStream" class="mobile-cards-stream"></div>
+
+        <!-- جدول المصاريف المفصل -->
+        <div class="data-table-container" id="expensesTableWrapper" style="display: none;">
+          <div class="table-scroll-wrapper">
+            <table class="unified-table" id="expensesTable">
+              <thead>
+                <tr>
+                  <th style="min-width: 105px;">التاريخ</th>
+                  <th style="min-width: 120px;">نوع المصروف</th>
+                  <th style="min-width: 95px;">المبلغ (ر.س)</th>
+                  <th style="min-width: 90px;">طريقة السداد</th>
+                  <th style="min-width: 100px;">حالة السداد</th>
+                  <th style="min-width: 140px;">ملاحظات</th>
+                  <th style="min-width: 90px;" class="text-center">إجراء</th>
+                </tr>
+              </thead>
+              <tbody id="expensesTableBody"></tbody>
+              <tfoot class="summary-tfoot">
+                <tr>
+                  <td colspan="2" class="total-label-cell">إجمالي المصاريف:</td>
+                  <td id="totExpAmount" class="total-net-cell">0.00</td>
+                  <td colspan="4" id="totExpDetails" class="total-meta-cell">0 عملية مسجلة</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <div id="expensesEmptyState" class="empty-state hidden">
+          <i class="fa-solid fa-file-invoice-dollar empty-icon"></i>
+          <p>لا توجد مصاريف مسجلة حتى الآن</p>
+          <button class="btn btn-sm btn-outline" onclick="openAddExpenseModal()">سجل مصروفاً جديداً</button>
+        </div>
+      </section>
+
+      <!-- تبويب 3: تقارير وطباعة PDF المستقلة -->
+      <section id="tab-reports" class="tab-panel">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">
+              <i class="fa-solid fa-file-pdf"></i> التقارير والطباعة المستقلة
+            </h2>
+            <p class="section-subtitle">تصدير تقارير احترافية بجداول واضحة وإجماليات دقيقة</p>
+          </div>
+        </div>
+
+        <div class="reports-grid">
+          <!-- كارت تقرير المبيعات المنفصل -->
+          <div class="report-action-card sales-theme">
+            <div class="report-card-header">
+              <div class="report-icon">
+                <i class="fa-solid fa-file-invoice"></i>
+              </div>
+              <div class="report-info">
+                <h3>تقرير المبيعات الموحد PDF</h3>
+                <p>تصدير منفصل لجدول المبيعات شاملاً (شبكة، عمولة البنك، التحويل، الكاش، والصافي) مع الإجماليات.</p>
+              </div>
+            </div>
+            <div class="report-stats-brief">
+              <div class="brief-item">
+                <span>عدد العمليات</span>
+                <strong id="repSalesCount">0</strong>
+              </div>
+              <div class="brief-item">
+                <span>إجمالي الصافي</span>
+                <strong id="repSalesNet">0.00 ر.س</strong>
+              </div>
+            </div>
+            <div class="report-actions-btn-group">
+              <button class="btn btn-primary btn-block" onclick="exportSalesPDF()">
+                <i class="fa-solid fa-download"></i> تحميل تقرير المبيعات PDF لوحده
+              </button>
+              <button class="btn btn-outline btn-block" onclick="printSection('sales')">
+                <i class="fa-solid fa-print"></i> معاينة وطباعة مباشرة
+              </button>
+            </div>
+          </div>
+
+          <!-- كارت تقرير المصاريف المنفصل -->
+          <div class="report-action-card expenses-theme">
+            <div class="report-card-header">
+              <div class="report-icon">
+                <i class="fa-solid fa-receipt"></i>
+              </div>
+              <div class="report-info">
+                <h3>تقرير المصاريف وتتبع السداد PDF</h3>
+                <p>تصدير منفصل لسجل المصاريف مع تصنيف كامل للمدفوع، غير المدفوع وحالات السداد الملونة.</p>
+              </div>
+            </div>
+            <div class="report-stats-brief">
+              <div class="brief-item">
+                <span>المسدد فعلياً</span>
+                <strong id="repExpPaid" class="text-success">0.00 ر.س</strong>
+              </div>
+              <div class="brief-item">
+                <span>المعلق والمستحق</span>
+                <strong id="repExpUnpaid" class="text-danger">0.00 ر.س</strong>
+              </div>
+            </div>
+            <div class="report-actions-btn-group">
+              <button class="btn btn-warning btn-block" onclick="exportExpensesPDF()">
+                <i class="fa-solid fa-download"></i> تحميل تقرير المصاريف PDF لوحده
+              </button>
+              <button class="btn btn-outline btn-block" onclick="printSection('expenses')">
+                <i class="fa-solid fa-print"></i> معاينة وطباعة مباشرة
+              </button>
+            </div>
+          </div>
+
+          <!-- كارت التقرير المالي المجمع -->
+          <div class="report-action-card summary-theme">
+            <div class="report-card-header">
+              <div class="report-icon">
+                <i class="fa-solid fa-scale-balanced"></i>
+              </div>
+              <div class="report-info">
+                <h3>التقرير المالي الشامل (المبيعات + المصاريف)</h3>
+                <p>تقرير ختامي يجمع بين المبيعات والمصاريف وحساب هامش وصافي الأرباح النهائي.</p>
+              </div>
+            </div>
+            <div class="report-actions-btn-group">
+              <button class="btn btn-success btn-block" onclick="exportCombinedPDF()">
+                <i class="fa-solid fa-file-shield"></i> تحميل التقرير الشامل PDF
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- بطاقة المزامنة السحابية المباشرة بين الأجهزة -->
+        <div class="settings-card cloud-settings-card">
+          <div class="settings-card-header">
+            <h3 class="settings-title"><i class="fa-solid fa-cloud text-accent"></i> المزامنة السحابية المباشرة (Cloud Sync)</h3>
+            <span class="badge-status-cloud" id="cloudSettingBadge"><i class="fa-solid fa-circle-check text-success"></i> متزامن</span>
+          </div>
+          <p class="settings-desc">يتصل التطبيق تلقائياً بقاعدة بيانات سحابية موحدة ليتزامن فوريًا بين جهاز الكمبيوتر وجوالك عند إضافة أو تعديل أو تصفير أي بيانات.</p>
+          
+          <div class="cloud-sync-info-box">
+            <div class="sync-id-display">
+              <span class="sync-id-label">كود المزامنة المشترك بين أجهزتك:</span>
+              <code id="displaySyncBinId" class="sync-id-code">ffbfffd</code>
+            </div>
+            <div class="sync-actions-row">
+              <button class="btn btn-sm btn-primary flex-1" onclick="copyCloudSyncLink()">
+                <i class="fa-solid fa-share-nodes"></i> نسخ رابط المزامنة للجوال
+              </button>
+              <button class="btn btn-sm btn-outline flex-1" onclick="triggerManualSync(true)">
+                <i class="fa-solid fa-arrows-rotate"></i> تحديث ومزامنة الآن
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- بطاقة الربط مع جوجل درايف Google Drive -->
+        <div class="settings-card gdrive-settings-card">
+          <div class="settings-card-header">
+            <h3 class="settings-title"><i class="fa-brands fa-google-drive text-success"></i> النسخ الاحتياطي في جوجل درايف (Google Drive)</h3>
+            <span class="badge-status-cloud" style="color:#34d399;"><i class="fa-solid fa-cloud-arrow-up"></i> سحابي</span>
+          </div>
+          <p class="settings-desc">احفظ نسخة احتياطية مشفرة من مبيعاتك ومصاريفك وأرقامك السرية على حسابك في Google Drive لضمان عدم ضياعها وسهولة استعادتها من أي جهاز.</p>
+          
+          <div class="cloud-sync-info-box">
+            <div class="sync-actions-row">
+              <button class="btn btn-sm btn-success flex-1" onclick="saveBackupToGoogleDrive()">
+                <i class="fa-brands fa-google-drive"></i> حفظ نسخة في Google Drive
+              </button>
+              <button class="btn btn-sm btn-outline flex-1" onclick="document.getElementById('importBackupInput').click()">
+                <i class="fa-solid fa-cloud-arrow-down"></i> استعادة نسخة سابقة
+              </button>
+            </div>
+            <p class="gdrive-hint"><i class="fa-solid fa-circle-info"></i> على الجوال: يفتح لك تطبيق Google Drive مباشرة لتحديد المجلد والحفظ بنقرة واحدة.</p>
+          </div>
+        </div>
+
+        <!-- أدوات النسخ الاحتياطي والبيانات -->
+        <div class="settings-card">
+          <h3 class="settings-title"><i class="fa-solid fa-database"></i> إدارة البيانات والتخزين المحلي</h3>
+          <p class="settings-desc">البيانات تُحفظ تلقائياً في ذاكرة المتصفح (LocalStorage). يمكنك تصدير نسخة احتياطية أو استيرادها في أي وقت.</p>
+          <div class="settings-buttons">
+            <button class="btn btn-sm btn-outline" onclick="exportBackupJSON()">
+              <i class="fa-solid fa-file-export"></i> تصدير نسخة احتياطية (JSON)
+            </button>
+            <label class="btn btn-sm btn-outline upload-btn-label">
+              <i class="fa-solid fa-file-import"></i> استعادة نسخة سابقة
+              <input type="file" id="importBackupInput" accept=".json" style="display:none" onchange="importBackupJSON(event)">
+            </label>
+            <button class="btn btn-sm btn-outline" onclick="openChangePinModal()">
+              <i class="fa-solid fa-key"></i> تغيير الرقم السري
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="confirmResetAllData()">
+              <i class="fa-solid fa-trash-can"></i> تصفير كافة البيانات
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    
+
+    <!-- 3. شريط التنقل السفلي المخصص للجوال (Bottom Navigation Bar) -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="tab-sales">
+        <i class="fa-solid fa-cash-register"></i>
+        <span>المبيعات</span>
+      </button>
+      
+      
+
+      <button class="nav-item" data-tab="tab-expenses">
+        <i class="fa-solid fa-receipt"></i>
+        <span>المصاريف</span>
+      </button>
+      
+      <button class="nav-item" data-tab="tab-reports">
+        <i class="fa-solid fa-file-pdf"></i>
+        <span>تقارير PDF</span>
+      </button>
+    </nav>
+
+    <!-- نافذة إضافة / تعديل عملية بيع (Sales Modal) -->
+    <div class="modal-overlay" id="salesModal">
+      <div class="modal-card">
+        <div class="bottom-sheet-handle"></div>
+        <div class="modal-header">
+          <h3 id="salesModalTitle"><i class="fa-solid fa-cart-plus"></i> تسجيل عملية بيع جديدة</h3>
+          <button class="modal-close" onclick="closeSalesModal()">&times;</button>
+        </div>
+        <form id="salesForm" onsubmit="handleSalesFormSubmit(event)">
+          <input type="hidden" id="salesEditId" value="">
+          
+          <div class="form-group">
+            <label for="saleDate"><i class="fa-regular fa-calendar"></i> التاريخ</label>
+            <input type="date" id="saleDate" required class="form-input">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="saleCard"><i class="fa-solid fa-credit-card"></i> شبكة (ر.س)</label>
+              <input type="number" step="0.01" min="0" id="saleCard" placeholder="0.00" class="form-input calc-trigger">
+            </div>
+            <div class="form-group col-6">
+              <label for="saleComm"><i class="fa-solid fa-percent"></i> عمولة البنك (ر.س)</label>
+              <input type="number" step="0.01" min="0" id="saleComm" placeholder="0.00" class="form-input calc-trigger">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="saleTransfer"><i class="fa-solid fa-money-bill-transfer"></i> تحويل (ر.س)</label>
+              <input type="number" step="0.01" min="0" id="saleTransfer" placeholder="0.00" class="form-input calc-trigger">
+            </div>
+            <div class="form-group col-6">
+              <label for="saleCash"><i class="fa-solid fa-money-bill-wave"></i> كاش (ر.س)</label>
+              <input type="number" step="0.01" min="0" id="saleCash" placeholder="0.00" class="form-input calc-trigger">
+            </div>
+          </div>
+
+          <!-- بطاقة الحساب التلقائي للصافي -->
+          <div class="auto-calc-box">
+            <div class="calc-formula-label">معادلة الحساب: (شبكة - عمولة) + تحويل + كاش</div>
+            <div class="calc-result-row">
+              <span>الصافي التلقائي:</span>
+              <strong id="modalCalculatedNet">0.00 ر.س</strong>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="saleNotes"><i class="fa-regular fa-comment-dots"></i> ملاحظات</label>
+            <input type="text" id="saleNotes" placeholder="مثال: مبيعات الوردية الصباحية / العميل..." class="form-input">
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="closeSalesModal()">إلغاء</button>
+            <button type="submit" class="btn btn-primary" id="saveSaleSubmitBtn">
+              <i class="fa-solid fa-check"></i> حفظ العملية
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- نافذة إضافة / تعديل مصروف (Expenses Modal) -->
+    <div class="modal-overlay" id="expensesModal">
+      <div class="modal-card">
+        <div class="bottom-sheet-handle"></div>
+        <div class="modal-header">
+          <h3 id="expenseModalTitle"><i class="fa-solid fa-hand-holding-dollar"></i> تسجيل مصروف جديد</h3>
+          <button class="modal-close" onclick="closeExpenseModal()">&times;</button>
+        </div>
+        <form id="expenseForm" onsubmit="handleExpenseFormSubmit(event)">
+          <input type="hidden" id="expenseEditId" value="">
+
+          <div class="form-group">
+            <label for="expDate"><i class="fa-regular fa-calendar"></i> التاريخ</label>
+            <input type="date" id="expDate" required class="form-input">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="expCategory"><i class="fa-solid fa-tags"></i> نوع المصروف</label>
+              <select id="expCategory" required class="form-input">
+                <option value="إيجار">إيجار</option>
+                <option value="فواتير وكهرباء">فواتير وكهرباء</option>
+                <option value="مشتريات وبضاعة">مشتريات وبضاعة</option>
+                <option value="رواتب وأجور">رواتب وأجور</option>
+                <option value="صيانة وتشغيل">صيانة وتشغيل</option>
+                <option value="تسويق وإعلانات">تسويق وإعلانات</option>
+                <option value="محروقات ونقل">محروقات ونقل</option>
+                <option value="أدوات ونظافة">أدوات ونظافة</option>
+                <option value="مصاريف نثرية">مصاريف نثرية</option>
+                <option value="أخرى">أخرى</option>
+              </select>
+            </div>
+            <div class="form-group col-6">
+              <label for="expAmount"><i class="fa-solid fa-coins"></i> المبلغ (ر.س)</label>
+              <input type="number" step="0.01" min="0.01" id="expAmount" placeholder="0.00" required class="form-input">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="expMethod"><i class="fa-solid fa-credit-card"></i> طريقة السداد</label>
+              <select id="expMethod" class="form-input">
+                <option value="كاش">كاش</option>
+                <option value="شبكة">شبكة</option>
+                <option value="تحويل بنكي">تحويل بنكي</option>
+                <option value="شيك">شيك</option>
+              </select>
+            </div>
+            <div class="form-group col-6">
+              <label for="expStatus"><i class="fa-solid fa-clipboard-check"></i> حالة السداد</label>
+              <select id="expStatus" required class="form-input">
+                <option value="مدفوع" selected>مدفوع (تم السداد)</option>
+                <option value="غير مدفوع">غير مدفوع (مستحق)</option>
+                <option value="انتظار">انتظار (معلق)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="expNotes"><i class="fa-regular fa-comment-dots"></i> ملاحظات</label>
+            <input type="text" id="expNotes" placeholder="مثال: فاتورة رقم 1024 / سداد دفعة أولى..." class="form-input">
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="closeExpenseModal()">إلغاء</button>
+            <button type="submit" class="btn btn-warning" id="saveExpSubmitBtn">
+              <i class="fa-solid fa-check"></i> حفظ المصروف
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- نافذة الحماية بالرقم السري (Security PIN Modal) -->
+    <div class="modal-overlay" id="pinSecurityModal">
+      <div class="modal-card pin-modal-card">
+        <div class="bottom-sheet-handle"></div>
+        <div class="modal-header">
+          <h3 id="pinModalTitle"><i class="fa-solid fa-shield-halved text-danger"></i> تأكيد برمز الحماية</h3>
+          <button class="modal-close" onclick="closePinModal()">&times;</button>
+        </div>
+        <div class="pin-modal-body">
+          <div class="pin-icon-wrapper">
+            <i class="fa-solid fa-lock pin-lock-icon"></i>
+          </div>
+          <p id="pinModalMessage" class="pin-modal-msg">يرجى إدخال الرقم السري لتأكيد العملية</p>
+          <div class="pin-input-container">
+            <input type="password" id="securityPinInput" class="pin-input" maxlength="8" inputmode="numeric" pattern="[0-9]*" placeholder="••••" autocomplete="off">
+          </div>
+          <p class="pin-hint"><i class="fa-solid fa-circle-info"></i> الرقم السري الافتراضي: <strong>1234</strong></p>
+          <div id="pinErrorMsg" class="pin-error-msg hidden">
+            <i class="fa-solid fa-triangle-exclamation"></i> الرقم السري غير صحيح، يرجى المحاولة مجدداً
+          </div>
+        </div>
+        <div class="modal-footer" style="display:flex; gap:10px; margin-top:16px;">
+          <button type="button" class="btn btn-secondary flex-1" onclick="closePinModal()">إلغاء</button>
+          <button type="button" class="btn btn-danger flex-1" id="pinConfirmBtn" onclick="verifyAndExecutePinAction()">
+            <i class="fa-solid fa-trash-can"></i> تأكيد الحذف
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- نافذة تغيير الرقم السري (Change PIN Modal) -->
+    <div class="modal-overlay" id="changePinModal">
+      <div class="modal-card">
+        <div class="bottom-sheet-handle"></div>
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-key text-accent"></i> تغيير الرقم السري</h3>
+          <button class="modal-close" onclick="closeChangePinModal()">&times;</button>
+        </div>
+        <form id="changePinForm" onsubmit="handleChangePinSubmit(event)">
+          <div class="form-group">
+            <label for="currentPin"><i class="fa-solid fa-lock-open"></i> الرقم السري الحالي</label>
+            <input type="password" id="currentPin" required class="form-input" inputmode="numeric" placeholder="الافتراضي 1234">
+          </div>
+          <div class="form-group">
+            <label for="newPin"><i class="fa-solid fa-lock"></i> الرقم السري الجديد</label>
+            <input type="password" id="newPin" required class="form-input" inputmode="numeric" placeholder="أدخل 4 أرقام أو أكثر">
+          </div>
+          <div class="form-group">
+            <label for="confirmNewPin"><i class="fa-solid fa-check-double"></i> تأكيد الرقم السري الجديد</label>
+            <input type="password" id="confirmNewPin" required class="form-input" inputmode="numeric" placeholder="أعد إدخال الرمز الجديد">
+          </div>
+          <div class="modal-footer" style="display:flex; gap:10px; margin-top:16px;">
+            <button type="button" class="btn btn-secondary flex-1" onclick="closeChangePinModal()">إلغاء</button>
+            <button type="submit" class="btn btn-primary flex-1">
+              <i class="fa-solid fa-save"></i> حفظ الرمز
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- حاويات مخفية للطباعة وتوليد PDF عالي الدقة -->
+    <div id="pdfExportContainer" style="display: none;"></div>
+
+    <!-- تنبيهات Toast خفيفة وأنيقة -->
+    <div id="toastNotification" class="toast hidden"></div>
+
+  </div>
+
+  <script>
+/**
+ * تطبيق إدارة المبيعات والمصاريف المتكامل والمخصص للجوال (RTL)
+ * تشمل: ساعة حية 12 ساعة، حسابات الصافي الفورية، تتبع حالات السداد،
+ * تصدير تقارير PDF منفصلة، والتخزين المحلي التلقائي.
+ */
+
+// مفاتيح التخزين المحلي
+const STORAGE_SALES_KEY = 'matar_sales_records_v1';
+const STORAGE_EXPENSES_KEY = 'matar_expenses_records_v1';
+
+// حالة التطبيق
+let salesData = [];
+let expensesData = [];
+
+// =========================================================
+// 1. الساعة الرقمية الحية والتاريخ باللغة العربية
+// =========================================================
+
+function initLiveClockAndDate() {
+  const timeElem = document.getElementById('liveTime');
+  const periodElem = document.getElementById('livePeriod');
+  const dateElem = document.getElementById('dateString');
+
+  const daysArabic = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  const monthsArabic = [
+    'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+    'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+  ];
+
+  function updateClock() {
+    const now = new Date();
+    
+    // حساب الساعات بنظام 12 ساعة
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const period = hours >= 12 ? 'م' : 'ص';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // الساعة 0 تصبح 12
+    const hoursFormatted = String(hours).padStart(2, '0');
+
+    if (timeElem) timeElem.textContent = `${hoursFormatted}:${minutes}:${seconds}`;
+    if (periodElem) periodElem.textContent = period;
+
+    // التاريخ العربي المفصل (مثال: الإثنين، 21 سبتمبر 2026)
+    const dayName = daysArabic[now.getDay()];
+    const dayNum = now.getDate();
+    const monthName = monthsArabic[now.getMonth()];
+    const year = now.getFullYear();
+
+    if (dateElem) {
+      dateElem.textContent = `${dayName}، ${dayNum} ${monthName} ${year}`;
+    }
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+}
+
+// =========================================================
+// 2. إدارة التخزين المحلي والبيانات الافتراضية
+// =========================================================
+
+function loadDataFromStorage() {
+  const storedSales = localStorage.getItem(STORAGE_SALES_KEY);
+  const storedExpenses = localStorage.getItem(STORAGE_EXPENSES_KEY);
+
+  if (storedSales) {
+    try {
+      salesData = JSON.parse(storedSales);
+    } catch (e) {
+      salesData = [];
+    }
+  } else {
+    // بيانات أولية واقعية للمعاينة الفورية
+    seedInitialData();
+  }
+
+  if (storedExpenses) {
+    try {
+      expensesData = JSON.parse(storedExpenses);
+    } catch (e) {
+      expensesData = [];
+    }
+  }
+}
+
+function saveDataToStorage() {
+  localStorage.setItem(STORAGE_SALES_KEY, JSON.stringify(salesData));
+  localStorage.setItem(STORAGE_EXPENSES_KEY, JSON.stringify(expensesData));
+  updateAllViews();
+}
+
+function seedInitialData() {
+  const today = new Date().toISOString().split('T')[0];
+
+  salesData = [
+    {
+      id: 'sale_' + Date.now() + '_1',
+      date: today,
+      card: 1500.00,
+      bankCommission: 15.00,
+      transfer: 2200.00,
+      cash: 850.00,
+      net: (1500.00 - 15.00) + 2200.00 + 850.00, // 4535.00
+      notes: 'مبيعات الوردية الصباحية'
+    },
+    {
+      id: 'sale_' + Date.now() + '_2',
+      date: today,
+      card: 2100.00,
+      bankCommission: 21.00,
+      transfer: 800.00,
+      cash: 1200.00,
+      net: (2100.00 - 21.00) + 800.00 + 1200.00, // 4079.00
+      notes: 'مبيعات الفرع الرئيسي - مسائي'
+    }
+  ];
+
+  expensesData = [
+    {
+      id: 'exp_' + Date.now() + '_1',
+      date: today,
+      category: 'إيجار',
+      amount: 2500.00,
+      method: 'تحويل بنكي',
+      status: 'مدفوع',
+      notes: 'سداد دفعة إيجار المحل'
+    },
+    {
+      id: 'exp_' + Date.now() + '_2',
+      date: today,
+      category: 'فواتير وكهرباء',
+      amount: 450.00,
+      method: 'شبكة',
+      status: 'مدفوع',
+      notes: 'فاتورة الكهرباء لشهر سبتمبر'
+    },
+    {
+      id: 'exp_' + Date.now() + '_3',
+      date: today,
+      category: 'مشتريات وبضاعة',
+      amount: 1800.00,
+      method: 'كاش',
+      status: 'غير مدفوع',
+      notes: 'بضاعة من المورد - مستحقة السبت'
+    },
+    {
+      id: 'exp_' + Date.now() + '_4',
+      date: today,
+      category: 'صيانة وتشغيل',
+      amount: 320.00,
+      method: 'كاش',
+      status: 'انتظار',
+      notes: 'صيانة جهاز التكييف المعلق'
+    }
+  ];
+
+  localStorage.setItem(STORAGE_SALES_KEY, JSON.stringify(salesData));
+  localStorage.setItem(STORAGE_EXPENSES_KEY, JSON.stringify(expensesData));
+}
+
+// =========================================================
+// 3. تحديث الإحصائيات الشاملة والعلوية (KPIs)
+// =========================================================
+
+function formatMoney(amount) {
+  return Number(amount || 0).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function updateKPIs() {
+  // حساب المبيعات
+  const totalNetSales = salesData.reduce((acc, curr) => acc + (Number(curr.net) || 0), 0);
+  
+  // حساب المصاريف
+  const totalExpenses = expensesData.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+  const paidExpenses = expensesData
+    .filter(e => e.status === 'مدفوع')
+    .reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+  const unpaidExpenses = expensesData
+    .filter(e => e.status === 'غير مدفوع')
+    .reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+  const pendingExpenses = expensesData
+    .filter(e => e.status === 'انتظار')
+    .reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+
+  // حساب صافي الأرباح (صافي المبيعات - إجمالي المصاريف)
+  const netProfit = totalNetSales - totalExpenses;
+
+  // تحديث البطاقات العلوية
+  const kpiNetSalesElem = document.getElementById('kpiNetSales');
+  const kpiTotalExpensesElem = document.getElementById('kpiTotalExpenses');
+  const kpiNetProfitElem = document.getElementById('kpiNetProfit');
+  const kpiUnpaidNoticeElem = document.getElementById('kpiUnpaidNotice');
+  const profitBadgeElem = document.getElementById('profitBadge');
+
+  if (kpiNetSalesElem) kpiNetSalesElem.textContent = formatMoney(totalNetSales);
+  if (kpiTotalExpensesElem) kpiTotalExpensesElem.textContent = formatMoney(totalExpenses);
+  if (kpiNetProfitElem) kpiNetProfitElem.textContent = formatMoney(netProfit);
+
+  if (kpiUnpaidNoticeElem) {
+    kpiUnpaidNoticeElem.textContent = `${formatMoney(unpaidExpenses)} ر.س غير مدفوع`;
+  }
+
+  if (profitBadgeElem) {
+    if (netProfit > 0) {
+      profitBadgeElem.className = 'stat-pill positive';
+      profitBadgeElem.innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> ربح إيجابي`;
+    } else if (netProfit < 0) {
+      profitBadgeElem.className = 'stat-pill negative';
+      profitBadgeElem.innerHTML = `<i class="fa-solid fa-arrow-trend-down"></i> عجز مالي`;
+    } else {
+      profitBadgeElem.className = 'stat-pill profit';
+      profitBadgeElem.innerHTML = `<i class="fa-solid fa-check"></i> متزن`;
+    }
+  }
+
+  // تحديث ملخص المصاريف
+  const expPaidElem = document.getElementById('expSummaryPaid');
+  const expUnpaidElem = document.getElementById('expSummaryUnpaid');
+  const expPendingElem = document.getElementById('expSummaryPending');
+  const expTotalElem = document.getElementById('expSummaryTotal');
+
+  if (expPaidElem) expPaidElem.textContent = `${formatMoney(paidExpenses)} ر.س`;
+  if (expUnpaidElem) expUnpaidElem.textContent = `${formatMoney(unpaidExpenses)} ر.س`;
+  if (expPendingElem) expPendingElem.textContent = `${formatMoney(pendingExpenses)} ر.س`;
+  if (expTotalElem) expTotalElem.textContent = `${formatMoney(totalExpenses)} ر.س`;
+
+  // تحديث أرقام قسم التقارير
+  const repSalesCount = document.getElementById('repSalesCount');
+  const repSalesNet = document.getElementById('repSalesNet');
+  const repExpPaid = document.getElementById('repExpPaid');
+  const repExpUnpaid = document.getElementById('repExpUnpaid');
+
+  if (repSalesCount) repSalesCount.textContent = salesData.length;
+  if (repSalesNet) repSalesNet.textContent = `${formatMoney(totalNetSales)} ر.س`;
+  if (repExpPaid) repExpPaid.textContent = `${formatMoney(paidExpenses)} ر.س`;
+  if (repExpUnpaid) repExpUnpaid.textContent = `${formatMoney(unpaidExpenses)} ر.س`;
+}
+
+// =========================================================
+// 4. جدول المبيعات الموحد وحساباته التلقائية
+// =========================================================
+
+function renderSalesTable() {
+  const tbody = document.getElementById('salesTableBody');
+  const cardsStream = document.getElementById('salesCardsStream');
+  const emptyState = document.getElementById('salesEmptyState');
+  if (!tbody || !cardsStream) return;
+
+  tbody.innerHTML = '';
+  cardsStream.innerHTML = '';
+
+  if (salesData.length === 0) {
+    if (emptyState) emptyState.classList.remove('hidden');
+    document.getElementById('salesMobileSummary')?.classList.add('hidden');
+  } else {
+    if (emptyState) emptyState.classList.add('hidden');
+    document.getElementById('salesMobileSummary')?.classList.remove('hidden');
+  }
+
+  let sumCard = 0;
+  let sumComm = 0;
+  let sumTransfer = 0;
+  let sumCash = 0;
+  let sumNet = 0;
+
+  salesData.forEach((row) => {
+    const cardVal = Number(row.card) || 0;
+    const commVal = Number(row.bankCommission) || 0;
+    const transVal = Number(row.transfer) || 0;
+    const cashVal = Number(row.cash) || 0;
+    const netVal = Number(row.net) || 0;
+
+    sumCard += cardVal;
+    sumComm += commVal;
+    sumTransfer += transVal;
+    sumCash += cashVal;
+    sumNet += netVal;
+
+    // 1. إنشاء صف الجدول الموحد
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${row.date}</strong></td>
+      <td>${formatMoney(row.card)}</td>
+      <td class="text-danger">${formatMoney(row.bankCommission)}</td>
+      <td>${formatMoney(row.transfer)}</td>
+      <td>${formatMoney(row.cash)}</td>
+      <td class="cell-net">${formatMoney(row.net)}</td>
+      <td><small>${row.notes || '-'}</small></td>
+      <td class="text-center">
+        <div class="table-actions">
+          <button class="action-btn" title="تعديل العملية" onclick="editSale('${row.id}')">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="action-btn delete" title="حذف العملية" onclick="deleteSale('${row.id}')">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+
+    // 2. إنشاء بطاقة الجوال الذكية المخصصة للهواتف
+    const cardElem = document.createElement('div');
+    cardElem.className = 'mobile-record-card';
+    cardElem.innerHTML = `
+      <div class="card-top-header">
+        <div class="card-date-badge">
+          <i class="fa-regular fa-calendar"></i>
+          <span>${row.date}</span>
+        </div>
+        <div class="table-actions">
+          <button class="action-btn" title="تعديل" onclick="editSale('${row.id}')">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="action-btn delete" title="حذف" onclick="deleteSale('${row.id}')">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-main-amount">
+        <span class="amount-label">الصافي الفعلي المحسوب:</span>
+        <div class="amount-value-group">
+          <span class="amount-val-highlight">${formatMoney(row.net)}</span>
+          <span class="stat-currency">ر.س</span>
+        </div>
+      </div>
+
+      <div class="card-details-grid">
+        <div class="detail-chip">
+          <span>💳 شبكة:</span>
+          <strong>${formatMoney(row.card)}</strong>
+        </div>
+        <div class="detail-chip">
+          <span>📉 عمولة البنك:</span>
+          <strong class="comm">${formatMoney(row.bankCommission)}</strong>
+        </div>
+        <div class="detail-chip">
+          <span>🔄 تحويل:</span>
+          <strong>${formatMoney(row.transfer)}</strong>
+        </div>
+        <div class="detail-chip">
+          <span>💵 كاش:</span>
+          <strong>${formatMoney(row.cash)}</strong>
+        </div>
+      </div>
+
+      ${row.notes ? `
+        <div class="card-notes-row">
+          <i class="fa-regular fa-message"></i>
+          <span>${row.notes}</span>
+        </div>
+      ` : ''}
+    `;
+    cardsStream.appendChild(cardElem);
+  });
+
+  // تحديث شريط إجماليات الجدول
+  document.getElementById('totCard').textContent = formatMoney(sumCard);
+  document.getElementById('totComm').textContent = formatMoney(sumComm);
+  document.getElementById('totTransfer').textContent = formatMoney(sumTransfer);
+  document.getElementById('totCash').textContent = formatMoney(sumCash);
+  document.getElementById('totNet').textContent = formatMoney(sumNet);
+
+  // تحديث شريط إجماليات بطاقات الجوال
+  const mobTotNetElem = document.getElementById('mobTotNet');
+  const mobBreakdownElem = document.getElementById('mobSalesBreakdown');
+  if (mobTotNetElem) mobTotNetElem.textContent = `${formatMoney(sumNet)} ر.س`;
+  if (mobBreakdownElem) {
+    mobBreakdownElem.textContent = `شبكة: ${formatMoney(sumCard)} | تحويل: ${formatMoney(sumTransfer)} | كاش: ${formatMoney(sumCash)}`;
+  }
+}
+
+// حساب الصافي التلقائي الفوري داخل النافذة المنبثقة
+function calculateModalNet() {
+  const card = parseFloat(document.getElementById('saleCard').value) || 0;
+  const comm = parseFloat(document.getElementById('saleComm').value) || 0;
+  const transfer = parseFloat(document.getElementById('saleTransfer').value) || 0;
+  const cash = parseFloat(document.getElementById('saleCash').value) || 0;
+
+  // المعادلة المحددة: (شبكة - عمولة البنك) + تحويل + كاش
+  const net = (card - comm) + transfer + cash;
+  const label = document.getElementById('modalCalculatedNet');
+  if (label) {
+    label.textContent = `${formatMoney(net)} ر.س`;
+  }
+  return net;
+}
+
+function openAddSalesModal() {
+  document.getElementById('salesModalTitle').innerHTML = '<i class="fa-solid fa-cart-plus"></i> تسجيل عملية بيع جديدة';
+  document.getElementById('salesForm').reset();
+  document.getElementById('salesEditId').value = '';
+  document.getElementById('saleDate').value = new Date().toISOString().split('T')[0];
+  calculateModalNet();
+  document.getElementById('salesModal').classList.add('active');
+}
+
+function closeSalesModal() {
+  document.getElementById('salesModal').classList.remove('active');
+}
+
+function editSale(id) {
+  const item = salesData.find(s => s.id === id);
+  if (!item) return;
+
+  document.getElementById('salesModalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> تعديل عملية بيع';
+  document.getElementById('salesEditId').value = item.id;
+  document.getElementById('saleDate').value = item.date;
+  document.getElementById('saleCard').value = item.card || '';
+  document.getElementById('saleComm').value = item.bankCommission || '';
+  document.getElementById('saleTransfer').value = item.transfer || '';
+  document.getElementById('saleCash').value = item.cash || '';
+  document.getElementById('saleNotes').value = item.notes || '';
+
+  calculateModalNet();
+  document.getElementById('salesModal').classList.add('active');
+}
+
+function handleSalesFormSubmit(event) {
+  event.preventDefault();
+
+  const editId = document.getElementById('salesEditId').value;
+  const date = document.getElementById('saleDate').value;
+  const card = parseFloat(document.getElementById('saleCard').value) || 0;
+  const bankCommission = parseFloat(document.getElementById('saleComm').value) || 0;
+  const transfer = parseFloat(document.getElementById('saleTransfer').value) || 0;
+  const cash = parseFloat(document.getElementById('saleCash').value) || 0;
+  const notes = document.getElementById('saleNotes').value.trim();
+
+  // حساب الصافي تلقائياً: (شبكة - عمولة) + تحويل + كاش
+  const net = (card - bankCommission) + transfer + cash;
+
+  if (editId) {
+    // تعديل
+    const index = salesData.findIndex(s => s.id === editId);
+    if (index !== -1) {
+      salesData[index] = {
+        ...salesData[index],
+        date,
+        card,
+        bankCommission,
+        transfer,
+        cash,
+        net,
+        notes
+      };
+      showToast('تم تحديث عملية البيع بنجاح', 'success');
+    }
+  } else {
+    // إضافة جديدة
+    const newSale = {
+      id: 'sale_' + Date.now(),
+      date,
+      card,
+      bankCommission,
+      transfer,
+      cash,
+      net,
+      notes
+    };
+    salesData.unshift(newSale); // إضافتها في البداية
+    showToast('تمت إضافة عملية البيع بنجاح', 'success');
+  }
+
+  saveDataToStorage();
+  closeSalesModal();
+}
+
+function deleteSale(id) {
+  requestSecurityPin('هل أنت متأكد من حذف عملية البيع هذه نهائياً؟', () => {
+    salesData = salesData.filter(s => s.id !== id);
+    saveDataToStorage();
+    showToast('تم حذف عملية البيع بنجاح', 'error');
+  });
+}
+
+// =========================================================
+// 5. قسم وجدول المصاريف وتتبع حالات السداد
+// =========================================================
+
+function renderExpensesTable() {
+  const tbody = document.getElementById('expensesTableBody');
+  const cardsStream = document.getElementById('expensesCardsStream');
+  const emptyState = document.getElementById('expensesEmptyState');
+  if (!tbody || !cardsStream) return;
+
+  tbody.innerHTML = '';
+  cardsStream.innerHTML = '';
+
+  if (expensesData.length === 0) {
+    if (emptyState) emptyState.classList.remove('hidden');
+  } else {
+    if (emptyState) emptyState.classList.add('hidden');
+  }
+
+  let totalExp = 0;
+
+  expensesData.forEach((row) => {
+    totalExp += Number(row.amount) || 0;
+
+    let statusClass = 'paid';
+    let statusIcon = 'fa-circle-check';
+    if (row.status === 'غير مدفوع') {
+      statusClass = 'unpaid';
+      statusIcon = 'fa-circle-xmark';
+    } else if (row.status === 'انتظار') {
+      statusClass = 'pending';
+      statusIcon = 'fa-clock';
+    }
+
+    // 1. صف جدول المصاريف
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${row.date}</strong></td>
+      <td><i class="fa-solid fa-tag text-muted"></i> ${row.category}</td>
+      <td class="cell-net">${formatMoney(row.amount)}</td>
+      <td><span class="badge-method">${row.method || 'كاش'}</span></td>
+      <td>
+        <span class="status-badge ${statusClass}" title="انقر للتبديل السريع" style="cursor: pointer;" onclick="cycleExpenseStatus('${row.id}')">
+          <i class="fa-solid ${statusIcon}"></i> ${row.status}
+        </span>
+      </td>
+      <td><small>${row.notes || '-'}</small></td>
+      <td class="text-center">
+        <div class="table-actions">
+          <button class="action-btn status-toggle" title="تغيير حالة السداد" onclick="cycleExpenseStatus('${row.id}')">
+            <i class="fa-solid fa-arrows-rotate"></i>
+          </button>
+          <button class="action-btn" title="تعديل المصروف" onclick="editExpense('${row.id}')">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="action-btn delete" title="حذف المصروف" onclick="deleteExpense('${row.id}')">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+
+    // 2. بطاقة مصروف ذكية للجوال
+    const cardElem = document.createElement('div');
+    cardElem.className = 'mobile-record-card expense-card';
+    cardElem.innerHTML = `
+      <div class="card-top-header">
+        <div class="card-date-badge">
+          <i class="fa-regular fa-calendar"></i>
+          <span>${row.date}</span>
+          <span style="margin-right: 6px; color: var(--text-main); font-weight: 800;">
+            <i class="fa-solid fa-tag" style="color: var(--warning);"></i> ${row.category}
+          </span>
+        </div>
+        <div class="table-actions">
+          <button class="action-btn status-toggle" title="تبديل حالة السداد" onclick="cycleExpenseStatus('${row.id}')">
+            <i class="fa-solid fa-arrows-rotate"></i>
+          </button>
+          <button class="action-btn" title="تعديل" onclick="editExpense('${row.id}')">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="action-btn delete" title="حذف" onclick="deleteExpense('${row.id}')">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-main-amount">
+        <span class="amount-label">مبلغ المصروف:</span>
+        <div class="amount-value-group">
+          <span class="amount-val-highlight amount-val-expense">${formatMoney(row.amount)}</span>
+          <span class="stat-currency">ر.س</span>
+        </div>
+      </div>
+
+      <div class="card-details-grid">
+        <div class="detail-chip">
+          <span>طريقة السداد:</span>
+          <strong>${row.method || 'كاش'}</strong>
+        </div>
+        <div class="detail-chip">
+          <span>حالة السداد:</span>
+          <span class="status-badge ${statusClass}" style="cursor: pointer;" onclick="cycleExpenseStatus('${row.id}')">
+            <i class="fa-solid ${statusIcon}"></i> ${row.status}
+          </span>
+        </div>
+      </div>
+
+      ${row.notes ? `
+        <div class="card-notes-row">
+          <i class="fa-regular fa-message"></i>
+          <span>${row.notes}</span>
+        </div>
+      ` : ''}
+    `;
+    cardsStream.appendChild(cardElem);
+  });
+
+  const totExpAmountElem = document.getElementById('totExpAmount');
+  const totExpDetailsElem = document.getElementById('totExpDetails');
+  if (totExpAmountElem) totExpAmountElem.textContent = formatMoney(totalExp);
+  if (totExpDetailsElem) totExpDetailsElem.textContent = `${expensesData.length} عملية مسجلة`;
+}
+
+function openAddExpenseModal() {
+  document.getElementById('expenseModalTitle').innerHTML = '<i class="fa-solid fa-hand-holding-dollar"></i> تسجيل مصروف جديد';
+  document.getElementById('expenseForm').reset();
+  document.getElementById('expenseEditId').value = '';
+  document.getElementById('expDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('expensesModal').classList.add('active');
+}
+
+function closeExpenseModal() {
+  document.getElementById('expensesModal').classList.remove('active');
+}
+
+function editExpense(id) {
+  const item = expensesData.find(e => e.id === id);
+  if (!item) return;
+
+  document.getElementById('expenseModalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> تعديل المصروف';
+  document.getElementById('expenseEditId').value = item.id;
+  document.getElementById('expDate').value = item.date;
+  document.getElementById('expCategory').value = item.category;
+  document.getElementById('expAmount').value = item.amount;
+  document.getElementById('expMethod').value = item.method;
+  document.getElementById('expStatus').value = item.status;
+  document.getElementById('expNotes').value = item.notes || '';
+
+  document.getElementById('expensesModal').classList.add('active');
+}
+
+function cycleExpenseStatus(id) {
+  const item = expensesData.find(e => e.id === id);
+  if (!item) return;
+
+  // تبديل دوري: مدفوع -> غير مدفوع -> انتظار -> مدفوع
+  if (item.status === 'مدفوع') {
+    item.status = 'غير مدفوع';
+  } else if (item.status === 'غير مدفوع') {
+    item.status = 'انتظار';
+  } else {
+    item.status = 'مدفوع';
+  }
+
+  saveDataToStorage();
+  showToast(`تم تغيير الحالة إلى: ${item.status}`, 'success');
+}
+
+function handleExpenseFormSubmit(event) {
+  event.preventDefault();
+
+  const editId = document.getElementById('expenseEditId').value;
+  const date = document.getElementById('expDate').value;
+  const category = document.getElementById('expCategory').value;
+  const amount = parseFloat(document.getElementById('expAmount').value) || 0;
+  const method = document.getElementById('expMethod').value;
+  const status = document.getElementById('expStatus').value;
+  const notes = document.getElementById('expNotes').value.trim();
+
+  if (editId) {
+    const index = expensesData.findIndex(e => e.id === editId);
+    if (index !== -1) {
+      expensesData[index] = {
+        ...expensesData[index],
+        date,
+        category,
+        amount,
+        method,
+        status,
+        notes
+      };
+      showToast('تم تحديث بيانات المصروف بنجاح', 'success');
+    }
+  } else {
+    const newExp = {
+      id: 'exp_' + Date.now(),
+      date,
+      category,
+      amount,
+      method,
+      status,
+      notes
+    };
+    expensesData.unshift(newExp);
+    showToast('تمت إضافة المصروف بنجاح', 'success');
+  }
+
+  saveDataToStorage();
+  closeExpenseModal();
+}
+
+function deleteExpense(id) {
+  requestSecurityPin('هل أنت متأكد من حذف هذا المصروف نهائياً؟', () => {
+    expensesData = expensesData.filter(e => e.id !== id);
+    saveDataToStorage();
+    showToast('تم حذف المصروف بنجاح', 'error');
+  });
+}
+
+// =========================================================
+// 6. تصدير وطباعة تقارير PDF المستقلة عالية الجودة
+// =========================================================
+
+// إنشاء ترويسة التقرير
+function buildReportHeader(title, subtitle) {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('ar-SA', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  const timeStr = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+
+  return `
+    <div class="pdf-header">
+      <div class="pdf-title-block">
+        <h1>${title}</h1>
+        <p>${subtitle}</p>
+      </div>
+      <div class="pdf-meta-block">
+        <span><strong>تاريخ الاستخراج:</strong> ${dateStr}</span>
+        <span><strong>الوقت:</strong> ${timeStr}</span>
+        <span><strong>نظام الإدارة:</strong> نسخة الجوال المتكاملة</span>
+      </div>
+    </div>
+  `;
+}
+
+// أ. تحميل تقرير المبيعات PDF لوحده
+function exportSalesPDF() {
+  if (salesData.length === 0) {
+    showToast('لا توجد مبيعات لتصدير التقرير!', 'error');
+    return;
+  }
+
+  showToast('جارٍ تجهيز وتحميل تقرير المبيعات PDF...', 'success');
+
+  const container = document.getElementById('pdfExportContainer');
+  let sumCard = 0, sumComm = 0, sumTransfer = 0, sumCash = 0, sumNet = 0;
+
+  const rowsHtml = salesData.map((row, idx) => {
+    sumCard += Number(row.card) || 0;
+    sumComm += Number(row.bankCommission) || 0;
+    sumTransfer += Number(row.transfer) || 0;
+    sumCash += Number(row.cash) || 0;
+    sumNet += Number(row.net) || 0;
+
+    return `
+      <tr>
+        <td style="text-align: center;">${idx + 1}</td>
+        <td>${row.date}</td>
+        <td>${formatMoney(row.card)}</td>
+        <td style="color: #dc2626;">${formatMoney(row.bankCommission)}</td>
+        <td>${formatMoney(row.transfer)}</td>
+        <td>${formatMoney(row.cash)}</td>
+        <td style="font-weight: bold; color: #059669;">${formatMoney(row.net)}</td>
+        <td>${row.notes || '-'}</td>
+      </tr>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="pdf-print-page" id="printableSalesDoc">
+      ${buildReportHeader('تقرير المبيعات الموحد', 'كشف تفصيلي بالعمليات والشبكة وعمولات البنك والتحويل والكاش والصافي')}
+      
+      <div class="pdf-summary-cards">
+        <div class="pdf-sum-card">
+          <span>إجمالي الشبكة</span>
+          <strong>${formatMoney(sumCard)} ر.س</strong>
+        </div>
+        <div class="pdf-sum-card">
+          <span>إجمالي عمولة البنك</span>
+          <strong style="color: #dc2626;">${formatMoney(sumComm)} ر.س</strong>
+        </div>
+        <div class="pdf-sum-card">
+          <span>إجمالي التحويل + كاش</span>
+          <strong>${formatMoney(sumTransfer + sumCash)} ر.س</strong>
+        </div>
+        <div class="pdf-sum-card" style="border-color: #059669; background: #ecfdf5;">
+          <span style="color: #059669; font-weight: bold;">صافي المبيعات الفعلي</span>
+          <strong style="color: #059669; font-size: 1.25rem;">${formatMoney(sumNet)} ر.س</strong>
+        </div>
+      </div>
+
+      <table class="pdf-table">
+        <thead>
+          <tr>
+            <th style="width: 35px; text-align: center;">#</th>
+            <th>التاريخ</th>
+            <th>شبكة (ر.س)</th>
+            <th>عمولة البنك</th>
+            <th>تحويل (ر.س)</th>
+            <th>كاش (ر.س)</th>
+            <th>الصافي (ر.س)</th>
+            <th>ملاحظات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHtml}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" style="text-align: center; font-weight: bold;">الإجمالي الكلي:</td>
+            <td>${formatMoney(sumCard)}</td>
+            <td style="color: #dc2626;">${formatMoney(sumComm)}</td>
+            <td>${formatMoney(sumTransfer)}</td>
+            <td>${formatMoney(sumCash)}</td>
+            <td style="font-weight: bold; color: #059669;">${formatMoney(sumNet)}</td>
+            <td>${salesData.length} عملية</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="pdf-footer">
+        <span>المعادلة المطبقة: الصافي = (شبكة - عمولة البنك) + تحويل + كاش</span>
+        <span>تقرير معتمد إلكترونياً</span>
+      </div>
+    </div>
+  `;
+
+  const opt = {
+    margin: [8, 8, 8, 8],
+    filename: `تقرير_المبيعات_${new Date().toISOString().split('T')[0]}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+  };
+
+  const element = document.getElementById('printableSalesDoc');
+  html2pdf().set(opt).from(element).save().then(() => {
+    container.innerHTML = '';
+  });
+}
+
+// ب. تحميل تقرير المصاريف PDF لوحده
+function exportExpensesPDF() {
+  if (expensesData.length === 0) {
+    showToast('لا توجد مصاريف لتصدير التقرير!', 'error');
+    return;
+  }
+
+  showToast('جارٍ تجهيز وتحميل تقرير المصاريف PDF...', 'success');
+
+  const container = document.getElementById('pdfExportContainer');
+  let sumTotal = 0, sumPaid = 0, sumUnpaid = 0, sumPending = 0;
+
+  const rowsHtml = expensesData.map((row, idx) => {
+    const amt = Number(row.amount) || 0;
+    sumTotal += amt;
+    if (row.status === 'مدفوع') sumPaid += amt;
+    else if (row.status === 'غير مدفوع') sumUnpaid += amt;
+    else sumPending += amt;
+
+    let badgeColor = '#059669';
+    if (row.status === 'غير مدفوع') badgeColor = '#dc2626';
+    else if (row.status === 'انتظار') badgeColor = '#d97706';
+
+    return `
+      <tr>
+        <td style="text-align: center;">${idx + 1}</td>
+        <td>${row.date}</td>
+        <td style="font-weight: bold;">${row.category}</td>
+        <td style="font-weight: bold;">${formatMoney(row.amount)}</td>
+        <td>${row.method || 'كاش'}</td>
+        <td style="font-weight: bold; color: ${badgeColor};">${row.status}</td>
+        <td>${row.notes || '-'}</td>
+      </tr>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="pdf-print-page" id="printableExpensesDoc">
+      ${buildReportHeader('تقرير المصاريف وتتبع السداد', 'كشف تفصيلي بالنفقات، الفواتير، وحالات السداد المسجلة')}
+      
+      <div class="pdf-summary-cards">
+        <div class="pdf-sum-card" style="border-color: #059669; background: #ecfdf5;">
+          <span style="color: #059669;">المسدد (مدفوع)</span>
+          <strong style="color: #059669;">${formatMoney(sumPaid)} ر.س</strong>
+        </div>
+        <div class="pdf-sum-card" style="border-color: #dc2626; background: #fef2f2;">
+          <span style="color: #dc2626;">المستحق (غير مدفوع)</span>
+          <strong style="color: #dc2626;">${formatMoney(sumUnpaid)} ر.س</strong>
+        </div>
+        <div class="pdf-sum-card" style="border-color: #d97706; background: #fffbeb;">
+          <span style="color: #d97706;">في الانتظار (معلق)</span>
+          <strong style="color: #d97706;">${formatMoney(sumPending)} ر.س</strong>
+        </div>
+        <div class="pdf-sum-card">
+          <span>إجمالي المصاريف</span>
+          <strong style="font-size: 1.25rem;">${formatMoney(sumTotal)} ر.س</strong>
+        </div>
+      </div>
+
+      <table class="pdf-table">
+        <thead>
+          <tr>
+            <th style="width: 35px; text-align: center;">#</th>
+            <th>التاريخ</th>
+            <th>نوع المصروف</th>
+            <th>المبلغ (ر.س)</th>
+            <th>طريقة السداد</th>
+            <th>حالة السداد</th>
+            <th>ملاحظات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHtml}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" style="text-align: center; font-weight: bold;">الإجمالي الكلي للمصاريف:</td>
+            <td style="font-weight: bold;">${formatMoney(sumTotal)} ر.س</td>
+            <td colspan="3">${expensesData.length} عملية مسجلة</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="pdf-footer">
+        <span>تقرير المصاريف وتتبع السداد المالي</span>
+        <span>تقرير معتمد إلكترونياً</span>
+      </div>
+    </div>
+  `;
+
+  const opt = {
+    margin: [8, 8, 8, 8],
+    filename: `تقرير_المصاريف_${new Date().toISOString().split('T')[0]}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  const element = document.getElementById('printableExpensesDoc');
+  html2pdf().set(opt).from(element).save().then(() => {
+    container.innerHTML = '';
+  });
+}
+
+// ج. تحميل التقرير المالي الشامل (مبيعات + مصاريف + صافي أرباح)
+function exportCombinedPDF() {
+  showToast('جارٍ إعداد التقرير المالي الشامل PDF...', 'success');
+
+  const container = document.getElementById('pdfExportContainer');
+  const totalSales = salesData.reduce((acc, c) => acc + (Number(c.net) || 0), 0);
+  const totalExp = expensesData.reduce((acc, c) => acc + (Number(c.amount) || 0), 0);
+  const netProfit = totalSales - totalExp;
+
+  container.innerHTML = `
+    <div class="pdf-print-page" id="printableCombinedDoc">
+      ${buildReportHeader('التقرير المالي الختامي الشامل', 'ملخص المبيعات، المصاريف، والميزانية وصافي الأرباح')}
+
+      <div class="pdf-summary-cards" style="margin-top: 15px;">
+        <div class="pdf-sum-card" style="border-color: #059669; background: #ecfdf5;">
+          <span style="color: #059669;">إجمالي صافي المبيعات</span>
+          <strong style="color: #059669; font-size: 1.3rem;">${formatMoney(totalSales)} ر.س</strong>
+        </div>
+        <div class="pdf-sum-card" style="border-color: #dc2626; background: #fef2f2;">
+          <span style="color: #dc2626;">إجمالي كافة المصاريف</span>
+          <strong style="color: #dc2626; font-size: 1.3rem;">${formatMoney(totalExp)} ر.س</strong>
+        </div>
+        <div class="pdf-sum-card" style="border-color: #4f46e5; background: #eef2ff;">
+          <span style="color: #4f46e5;">صافي الأرباح النهائي</span>
+          <strong style="color: #4f46e5; font-size: 1.3rem;">${formatMoney(netProfit)} ر.س</strong>
+        </div>
+      </div>
+
+      <div style="margin-top: 25px; padding: 15px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc;">
+        <h3 style="font-size: 1rem; color: #0f172a; margin-bottom: 8px;">مؤشرات الأداء المالي:</h3>
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 5px;">
+          • إجمالي عدد عمليات البيع المسجلة: <strong>${salesData.length}</strong> عملية.
+        </p>
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 5px;">
+          • إجمالي عدد عمليات المصاريف: <strong>${expensesData.length}</strong> بنود.
+        </p>
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 5px;">
+          • هامش الربح المحقق: <strong>${totalSales > 0 ? ((netProfit / totalSales) * 100).toFixed(1) : 0}%</strong>
+        </p>
+      </div>
+
+      <div class="pdf-footer" style="margin-top: 40px;">
+        <span>التقرير المالي الموحد لنظام إدارة المبيعات والمصاريف للجوال</span>
+        <span>تقرير رسمي مستخرج إلكترونياً</span>
+      </div>
+    </div>
+  `;
+
+  const opt = {
+    margin: [10, 10, 10, 10],
+    filename: `التقرير_المالي_الشامل_${new Date().toISOString().split('T')[0]}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  const element = document.getElementById('printableCombinedDoc');
+  html2pdf().set(opt).from(element).save().then(() => {
+    container.innerHTML = '';
+  });
+}
+
+// د. الطباعة المباشرة عبر المتصفح
+function printSection(section) {
+  if (section === 'sales') {
+    exportSalesPDF();
+  } else if (section === 'expenses') {
+    exportExpensesPDF();
+  }
+}
+
+// =========================================================
+// 7. إدارة التبويبات والتنقل (Navigation & Tabs)
+// =========================================================
+
+function initNavigation() {
+  const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const targetId = item.getAttribute('data-tab');
+      if (!targetId) return;
+
+      navItems.forEach(n => n.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      item.classList.add('active');
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) targetPanel.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  
+
+  // أزرار النوافذ العادية
+  document.getElementById('openSalesModalBtn')?.addEventListener('click', openAddSalesModal);
+  document.getElementById('openExpensesModalBtn')?.addEventListener('click', openAddExpenseModal);
+
+  // مستمعات الحساب التلقائي داخل نموذج المبيعات
+  const calcInputs = document.querySelectorAll('.calc-trigger');
+  calcInputs.forEach(input => {
+    input.addEventListener('input', calculateModalNet);
+  });
+}
+
+
+
+// =========================================================
+// 8. النسخ الاحتياطي وإدارة البيانات
+// =========================================================
+
+function saveBackupToGoogleDrive() {
+  const backupData = {
+    appName: 'تطبيق إدارة المبيعات والمصاريف',
+    exportDate: new Date().toISOString(),
+    sales: salesData,
+    expenses: expensesData,
+    securityPin: getSecurityPin(),
+    cloudBinId: activeCloudBinId
+  };
+
+  const jsonString = JSON.stringify(backupData, null, 2);
+  const now = new Date();
+  const dateStr = now.toISOString().split('T')[0];
+  const fileName = 'نسخة_المبيعات_والمصاريف_' + dateStr + '.json';
+  const file = new File([jsonString], fileName, { type: 'application/json' });
+
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({
+      files: [file],
+      title: 'نسخة احتياطية - المبيعات والمصاريف',
+      text: 'حفظ النسخة الاحتياطية في Google Drive'
+    }).then(() => {
+      showToast('تم فتح المشاركة لحفظ النسخة في Google Drive', 'success');
+    }).catch((err) => {
+      if (err.name !== 'AbortError') {
+        fallbackDownloadBackup(jsonString, fileName);
+      }
+    });
+  } else {
+    fallbackDownloadBackup(jsonString, fileName);
+    setTimeout(() => {
+      if (confirm('تم تنزيل ملف النسخة الاحتياطية بنجاح على جهازك.\n\nهل ترغب في فتح موقع Google Drive الآن لرفع الملف عليه؟')) {
+        window.open('https://drive.google.com/drive/u/0/my-drive', '_blank');
+      }
+    }, 400);
+  }
+}
+
+function fallbackDownloadBackup(jsonString, fileName) {
+  const blob = new Blob([jsonString], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('تم تنزيل ملف النسخة الاحتياطية بنجاح', 'success');
+}
+
+function exportBackupJSON() {
+  const data = {
+    exportDate: new Date().toISOString(),
+    version: '1.0',
+    sales: salesData,
+    expenses: expensesData
+  };
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `نسخة_احتياطية_المبيعات_والمصاريف_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('تم تصدير النسخة الاحتياطية بنجاح', 'success');
+}
+
+function importBackupJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (parsed.sales && Array.isArray(parsed.sales)) {
+        salesData = parsed.sales;
+      }
+      if (parsed.expenses && Array.isArray(parsed.expenses)) {
+        expensesData = parsed.expenses;
+      }
+      saveDataToStorage();
+      showToast('تمت استعادة البيانات بنجاح!', 'success');
+    } catch (err) {
+      showToast('الملف غير صالح أو تالف!', 'error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function confirmResetAllData() {
+  requestSecurityPin('تحذير شديد: سيتم تصفير ومسح كافة سجلات المبيعات والمصاريف بالكامل! لا يمكن التراجع بعد ذلك.', () => {
+    salesData = [];
+    expensesData = [];
+    saveDataToStorage();
+    showToast('تم تصفير كافة البيانات بنجاح', 'error');
+  });
+}
+
+
+// =========================================================
+// 8.1 نظام الأمان والحماية بالرقم السري (Security PIN System)
+// =========================================================
+const PIN_STORAGE_KEY = 'sales_app_security_pin';
+const DEFAULT_PIN = '1234';
+
+function getSecurityPin() {
+  return localStorage.getItem(PIN_STORAGE_KEY) || DEFAULT_PIN;
+}
+
+function setSecurityPin(newPin) {
+  localStorage.setItem(PIN_STORAGE_KEY, newPin);
+}
+
+let pendingPinAction = null;
+
+function requestSecurityPin(message, onConfirmAction, isDestructive = true) {
+  pendingPinAction = onConfirmAction;
+  const modal = document.getElementById('pinSecurityModal');
+  const msgEl = document.getElementById('pinModalMessage');
+  const pinInput = document.getElementById('securityPinInput');
+  const errorEl = document.getElementById('pinErrorMsg');
+  const confirmBtn = document.getElementById('pinConfirmBtn');
+
+  if (msgEl) msgEl.textContent = message;
+  if (pinInput) {
+    pinInput.value = '';
+    pinInput.classList.remove('input-error');
+  }
+  if (errorEl) errorEl.classList.add('hidden');
+  
+  if (confirmBtn) {
+    if (isDestructive) {
+      confirmBtn.className = 'btn btn-danger flex-1';
+      confirmBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i> تأكيد الحذف';
+    } else {
+      confirmBtn.className = 'btn btn-primary flex-1';
+      confirmBtn.innerHTML = '<i class="fa-solid fa-check"></i> تأكيد';
+    }
+  }
+
+  if (modal) {
+    modal.classList.add('active');
+    setTimeout(() => {
+      if (pinInput) pinInput.focus();
+    }, 200);
+  }
+}
+
+function closePinModal() {
+  const modal = document.getElementById('pinSecurityModal');
+  if (modal) modal.classList.remove('active');
+  pendingPinAction = null;
+}
+
+function verifyAndExecutePinAction() {
+  const pinInput = document.getElementById('securityPinInput');
+  const errorEl = document.getElementById('pinErrorMsg');
+  const enteredPin = pinInput ? pinInput.value.trim() : '';
+  const currentPin = getSecurityPin();
+
+  if (enteredPin === currentPin) {
+    closePinModal();
+    if (typeof pendingPinAction === 'function') {
+      const action = pendingPinAction;
+      pendingPinAction = null;
+      action();
+    }
+  } else {
+    if (errorEl) errorEl.classList.remove('hidden');
+    if (pinInput) {
+      pinInput.classList.add('input-error');
+      pinInput.select();
+    }
+    const card = document.querySelector('#pinSecurityModal .modal-card');
+    if (card) {
+      card.classList.add('shake-anim');
+      setTimeout(() => card.classList.remove('shake-anim'), 450);
+    }
+    showToast('الرقم السري غير صحيح! يرجى إعادة المحاولة', 'error');
+  }
+}
+
+function openChangePinModal() {
+  const modal = document.getElementById('changePinModal');
+  const form = document.getElementById('changePinForm');
+  if (form) form.reset();
+  if (modal) modal.classList.add('active');
+}
+
+function closeChangePinModal() {
+  const modal = document.getElementById('changePinModal');
+  if (modal) modal.classList.remove('active');
+}
+
+function handleChangePinSubmit(e) {
+  e.preventDefault();
+  const currentPinInput = document.getElementById('currentPin').value.trim();
+  const newPinInput = document.getElementById('newPin').value.trim();
+  const confirmNewPinInput = document.getElementById('confirmNewPin').value.trim();
+  const actualCurrentPin = getSecurityPin();
+
+  if (currentPinInput !== actualCurrentPin) {
+    showToast('الرقم السري الحالي غير صحيح!', 'error');
+    return;
+  }
+
+  if (!newPinInput || newPinInput.length < 4) {
+    showToast('يجب أن يتكون الرقم السري الجديد من 4 خانات على الأقل', 'warning');
+    return;
+  }
+
+  if (newPinInput !== confirmNewPinInput) {
+    showToast('تأكيد الرقم السري غير متطابق!', 'error');
+    return;
+  }
+
+  setSecurityPin(newPinInput);
+  closeChangePinModal();
+  showToast('تم تغيير الرقم السري بنجاح!', 'success');
+}
+
+// =========================================================
+// 9. رسائل التنبيهات Toast
+// =========================================================
+
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toastNotification');
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.className = `toast toast-${type}`;
+  toast.classList.remove('hidden');
+
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => {
+    toast.classList.add('hidden');
+  }, 2600);
+}
+
+// تحديث كل واجهات التطبيق
+function updateAllViews() {
+  updateKPIs();
+  renderSalesTable();
+  renderExpensesTable();
+}
+
+// =========================================================
+// 10. تبديل وضع العرض (بطاقات الجوال الذكية vs الجدول الموحد)
+// =========================================================
+
+
+// =========================================================
+// 11. دعم PWA وتثبيت التطبيق على الجوال
+// =========================================================
+
+let deferredInstallPrompt = null;
+
+function initPWAAndInstall() {
+  // تسجيل Service Worker للعمل دون إنترنت
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then((reg) => {
+        if (reg) reg.update();
+        console.log('Service Worker Registered successfully:', reg.scope);
+      }).catch((err) => {
+        console.log('Service Worker registration skipped or failed:', err);
+      });
+    });
+  }
+
+  const banner = document.getElementById('installAppBanner');
+  const installBtn = document.getElementById('btnInstallApp');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if (banner && !sessionStorage.getItem('pwa_banner_dismissed')) {
+      banner.classList.remove('hidden');
+    }
+  });
+
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        if (outcome === 'accepted') {
+          showToast('شكراً لتثبيت التطبيق على جهازك!', 'success');
+        }
+        deferredInstallPrompt = null;
+        if (banner) banner.classList.add('hidden');
+      } else {
+        // تنبيه لمستخدمي Safari على آيفون
+        showToast('لتثبيت التطبيق على الآيفون: اضغط مشاركة [⎋] ثم (إضافة إلى الشاشة الرئيسية ⊞)', 'success');
+      }
+    });
+  }
+}
+
+function dismissInstallBanner() {
+  const banner = document.getElementById('installAppBanner');
+  if (banner) banner.classList.add('hidden');
+  sessionStorage.setItem('pwa_banner_dismissed', 'true');
+}
+
+// استجابة اهتزازية لمسية خفيفة للجوال (Haptic)
+function triggerHaptic() {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) {
+    navigator.vibrate(18);
+  }
+}
+
+// =========================================================
+// 12. تشغيل التطبيق عند التحميل
+// =========================================================
+
+
+// =========================================================
+// 12. محرك المزامنة السحابية الفورية (Real-Time Cloud Sync)
+// =========================================================
+const DEFAULT_CLOUD_BIN_ID = 'ffbfffd';
+const CLOUD_BIN_STORAGE_KEY = 'matar_app_cloud_bin_id';
+const CLOUD_API_BASE = 'https://extendsclass.com/api/json-storage/bin/';
+
+let activeCloudBinId = DEFAULT_CLOUD_BIN_ID;
+let isSyncing = false;
+let syncDebounceTimer = null;
+let lastCloudSyncTimestamp = 0;
+
+function initCloudSyncConfig() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const syncParam = urlParams.get('sync');
+  
+  if (syncParam && syncParam.trim()) {
+    activeCloudBinId = syncParam.trim();
+    localStorage.setItem(CLOUD_BIN_STORAGE_KEY, activeCloudBinId);
+  } else {
+    activeCloudBinId = localStorage.getItem(CLOUD_BIN_STORAGE_KEY) || DEFAULT_CLOUD_BIN_ID;
+  }
+
+  const displayCode = document.getElementById('displaySyncBinId');
+  if (displayCode) displayCode.textContent = activeCloudBinId;
+}
+
+function updateCloudBadgeStatus(status, text) {
+  const badge = document.getElementById('cloudSyncBadge');
+  const settingBadge = document.getElementById('cloudSettingBadge');
+  if (!badge) return;
+
+  badge.className = 'cloud-sync-status ' + status;
+
+  if (status === 'syncing') {
+    badge.innerHTML = '<i class="fa-solid fa-arrows-rotate fa-spin cloud-icon"></i><span id="cloudSyncText">' + text + '</span>';
+  } else if (status === 'synced') {
+    badge.innerHTML = '<i class="fa-solid fa-cloud-check cloud-icon"></i><span id="cloudSyncText">' + text + '</span>';
+    if (settingBadge) settingBadge.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i> متزامن';
+  } else if (status === 'offline') {
+    badge.innerHTML = '<i class="fa-solid fa-cloud-slash cloud-icon"></i><span id="cloudSyncText">' + text + '</span>';
+    if (settingBadge) settingBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-warning"></i> أوفلاين';
+  }
+}
+
+async function pushDataToCloud() {
+  if (isSyncing) return;
+  isSyncing = true;
+  updateCloudBadgeStatus('syncing', 'جاري المزامنة...');
+
+  try {
+    const payload = {
+      sales: salesData,
+      expenses: expensesData,
+      securityPin: getSecurityPin(),
+      lastUpdated: Date.now()
+    };
+
+    const res = await fetch(CLOUD_API_BASE + activeCloudBinId, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      lastCloudSyncTimestamp = payload.lastUpdated;
+      updateCloudBadgeStatus('synced', 'متزامن سحابياً');
+    } else {
+      updateCloudBadgeStatus('offline', 'تعذر الحفظ بالسحابة');
+    }
+  } catch (err) {
+    console.warn('Cloud sync push error:', err);
+    updateCloudBadgeStatus('offline', 'غير متصل بالسحابة');
+  } finally {
+    isSyncing = false;
+  }
+}
+
+async function pullDataFromCloud(isManual = false) {
+  if (isSyncing) return;
+  isSyncing = true;
+  updateCloudBadgeStatus('syncing', 'جاري التحديث...');
+
+  try {
+    const res = await fetch(CLOUD_API_BASE + activeCloudBinId + '?t=' + Date.now());
+    if (res.ok) {
+      const data = await res.json();
+      if (data && typeof data === 'object') {
+        const cloudTimestamp = Number(data.lastUpdated) || 0;
+        
+        if (isManual || cloudTimestamp > lastCloudSyncTimestamp || (salesData.length === 0 && Array.isArray(data.sales) && data.sales.length > 0)) {
+          if (Array.isArray(data.sales)) salesData = data.sales;
+          if (Array.isArray(data.expenses)) expensesData = data.expenses;
+          if (data.securityPin) setSecurityPin(data.securityPin);
+          
+          lastCloudSyncTimestamp = cloudTimestamp || Date.now();
+          
+          localStorage.setItem(STORAGE_SALES_KEY, JSON.stringify(salesData));
+          localStorage.setItem(STORAGE_EXPENSES_KEY, JSON.stringify(expensesData));
+          
+          renderAll();
+          if (isManual) showToast('تمت المزامنة وتحديث البيانات بنجاح!', 'success');
+        }
+        updateCloudBadgeStatus('synced', 'متزامن سحابياً');
+      }
+    } else {
+      updateCloudBadgeStatus('offline', 'غير متصل بالسحابة');
+    }
+  } catch (err) {
+    console.warn('Cloud sync pull error:', err);
+    updateCloudBadgeStatus('offline', 'غير متصل بالسحابة');
+  } finally {
+    isSyncing = false;
+  }
+}
+
+function scheduleCloudPush() {
+  updateCloudBadgeStatus('syncing', 'جاري الحفظ...');
+  clearTimeout(syncDebounceTimer);
+  syncDebounceTimer = setTimeout(() => {
+    pushDataToCloud();
+  }, 400);
+}
+
+function triggerManualSync(notify = true) {
+  if (notify) showToast('جاري الاتصال بالسحابة وجلب أحدث البيانات...', 'info');
+  pullDataFromCloud(true);
+}
+
+function copyCloudSyncLink() {
+  const currentUrl = window.location.origin + window.location.pathname;
+  const syncUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'sync=' + activeCloudBinId;
+  
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(syncUrl).then(() => {
+      showToast('تم نسخ رابط المزامنة للجوال بنجاح! أرسله لواتساب جوالك', 'success');
+    }).catch(() => {
+      prompt('انسخ هذا الرابط وافتحه على جوالك:', syncUrl);
+    });
+  } else {
+    prompt('انسخ هذا الرابط وافتحه على جوالك:', syncUrl);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initLiveClockAndDate();
+  initCloudSyncConfig();
+  loadDataFromStorage();
+  pullDataFromCloud(false);
+
+  // تحديث تلقائي فوري عند فتح الجوال أو الرجوع لصفحة التطبيق
+  window.addEventListener('focus', () => pullDataFromCloud(false));
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) pullDataFromCloud(false);
+  });
+  // مزامنة دورية كل 15 ثانية في الخلفية
+  setInterval(() => {
+    if (!document.hidden) pullDataFromCloud(false);
+  }, 15000);
+  updateAllViews();
+  initNavigation();
+    initPWAAndInstall();
+});
+
+
+</script>
+</body>
+</html>
